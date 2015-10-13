@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+	<meta http-equiv="Content-Language" content="en,fa">
+	<meta charset="UTF-8">
+	<meta name="description" content="An Online ACM Judge System with python support">
+	<meta name="keywords" content="ACM judge,IUST,Hooman Behnejad,Python,CPP">
+	<meta name="author" content="Hooman Behnejad">
+	<link rel="shortcut icon" href="/statics/favicon.ico"/>
+	<title>{% block title %}Gosling System{% endblock %}</title>
+	<link href="/statics/bootstrap/css/bootstrap.min3.css" rel="stylesheet">
+	<link href="/statics/css/extras.css" rel="stylesheet">
+	<link href="/statics/fonts/irmitra.css" rel="stylesheet">
+	<script src="/statics/js/jquery.min.js"></script>
+	<script src="/statics/bootstrap/js/bootstrap.min.js"></script>
+	{% load dajaxice_templatetags %}{% dajaxice_js_import %}
+</head>
+<body>
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-bar">
+				<span class="sr-only">Toggle</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand">{% block sitename %}Gosling Test System{% endblock %}</a>
+		</div>
+		<div class="collapse navbar-collapse" id="nav-bar">
+			{% block navLeft %}
+				<ul class="nav navbar-nav" id="navExtLeft">
+					<li class="{% block brandingClass %}{% endblock %}"><a id="site-name">{% block branding %}Welcome{% endblock %}</a></li>
+					{% block extLeft %}<li><a>Link</a></li>{% endblock %}
+				</ul>
+			{% endblock %}
+			{% block navRight %}
+				<div class="navbar-right">
+					<div class="btn-group">
+						{% block extRight %}<button class="btn btn-default navbar-btn">Link</button>{% endblock %}
+					</div>
+				{% block action %}
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a class="dropdown-toggle irmitra bold" data-toggle="dropdown">تنظیمات<span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu" style="text-align: left">
+								{% block extraDrop %}{% endblock %}
+								<li><a href="/user/self" class="irmitra bold size18">حساب کاربری
+									 <span class="glyphicon glyphicon-user navbar-right"></span></a>
+								</li>
+								<li><a href="/close" class="irmitra bold size18">خروج
+								   <span class="glyphicon glyphicon-off navbar-right"></span></a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				{% endblock %}
+				</div>
+			{% endblock %}
+		</div>
+	</div>
+</nav>
+<div class="{% block containerClass %}container{% endblock %}">{% block content %}{% endblock %}</div>
+{% block footer %}
+<footer class="myfooter">
+	<div class="container" align="center">
+		<div class="text-muted btn-group">
+			<a class="text-info btn btn-default" href="#"> &copy; 2015 IUST AMC</a>
+		</div>
+	</div>
+</footer>
+{% endblock %}
+</body>
+{% block extra %}{% endblock %}
+</html>

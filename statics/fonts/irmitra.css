@@ -1,0 +1,13 @@
+@font-face {
+  font-family: irmitra;
+  font-weight: normal;
+  src: url('/statics/fonts/IRMitra.woff') format('woff');
+}
+@font-face {
+  font-family: irmitra;
+  font-weight: bold;
+  src: url('/statics/fonts/IRMitraBd.woff') format('woff');
+}
+.irmitra{
+    font-family: irmitra;
+}
