@@ -33,3 +33,9 @@ class User(models.Model):
     def key(self):
         return createkey(self.username, self.password, self.email)
 
+
+
+class group(models.Model):
+    name = models.CharField(max_length=50)
+    admin = models.ForeignKey(User)
+

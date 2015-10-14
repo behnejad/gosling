@@ -47,3 +47,12 @@ class UserAdmin(admin.ModelAdmin):
 
     deActivateUser.short_description = "Deactivate selected account(s)"
 
+
+
+@admin.register(models.User)
+class GroupAdmin(admin.ModelAdmin):
+    list_per_page = 15
+    list_max_show_all = 30
+    search_fields = ('name', 'admin__last_name', 'admin__first_name', 'admin__username')
+
+

@@ -98,6 +98,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'dajaxice',
     'user',
+    'exam',
 )
 
 LOGGING = {
