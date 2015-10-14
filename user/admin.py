@@ -11,14 +11,14 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ('first_name', 'last_name', 'datecreate', 'email', 'type', 'request', 'username')
     list_per_page = 15
     list_max_show_all = 30
-    list_filter = (('isactivate', admin.BooleanFieldListFilter), 'type', 'request', 'college')
+    list_filter = (('isactivate', admin.BooleanFieldListFilter), 'type', 'request')
     list_editable = ('isactivate', 'type', 'request')
     list_display_links = ('username', )
     readonly_fields = ('key', )
     fieldsets = (
         ('Main Information', {
             'classes': ('wide', ),
-            'fields': (('first_name', 'last_name'), 'username', 'college', 'type'),
+            'fields': (('first_name', 'last_name'), 'username', 'type'),
         }
          ),
         ('Advanced options', {
@@ -49,7 +49,7 @@ class UserAdmin(admin.ModelAdmin):
 
 
 
-@admin.register(models.User)
+@admin.register(models.group)
 class GroupAdmin(admin.ModelAdmin):
     list_per_page = 15
     list_max_show_all = 30

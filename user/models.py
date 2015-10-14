@@ -12,7 +12,6 @@ class User(models.Model):
     username = models.CharField(max_length=30, db_index=True)
     password = models.CharField(max_length=60, help_text='This is not real')
     email = models.EmailField(max_length=50)
-    college = models.ForeignKey(university)
     datecreate = models.DateTimeField()
     isactivate = models.BooleanField(default=False, choices=mode)
     type = models.CharField(max_length=1, choices=mode2, default='S')
