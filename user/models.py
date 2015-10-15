@@ -3,6 +3,11 @@
 from django.db import models
 
 
+class mail(models.Model):
+    email = models.CharField(max_length=50)
+    hashId = models.CharField()
+
+
 class User(models.Model):
     mode = ((False, 'No'), (True, 'Yes'))
     mode2 = (('T', 'Teacher'), ('S', 'Student'), ('O', 'Free User'))

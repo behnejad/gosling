@@ -2,12 +2,54 @@
 {% block navLeft %}{% endblock %}
 {% block navRight %}{% endblock %}
 {% block content %}
-<div class="col-sm-8 col-sm-offset-2">
-	<div class="rtl irmitra" align="center">
-		<h1>به سایت آزمون گیری خودکار Gosling خوش آمدید</h1>
-	</div>
-	<form action="/login" method="POST">
-		
-	</form>
-</div>
+    <div class="col-sm-5 col-sm-offset-1">
+        <div class="rtl irmitra" align="center">
+            <h1>به سایت آزمون گیری خودکار Gosling خوش آمدید</h1>
+        </div>
+    </div>
+    <div class="col-sm-3 col-sm-offset-2">
+        <div class="rtl irmitra">
+            <h1>سلام</h1>
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-success">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
+                               aria-controls="collapseOne">
+                                نظرت راجع به ورود به سیستم چیه؟
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <form class="form-signin">
+                                <input type="email" id="inputEmail" class="form-control" placeholder="ایمیل" required autofocus>
+                                <input type="password" id="inputPassword" class="form-control" placeholder="گذرواژه" required>
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">وارد شو</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <h4 class="panel-title">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                               aria-expanded="false" aria-controls="collapseTwo">
+                                نظری نداری؟ میخوای یه حساب ایجاد کنی؟
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            <form class="form-signin">
+                                <input type="email" id="inputEmail" class="form-control" placeholder="ایمیل" required autofocus>
+                                <br> با کلیک کردن شما <a href="#">قوانین </a> را قبول کرده اید<br> <br>
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">ثبت نام</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
