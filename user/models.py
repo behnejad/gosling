@@ -5,7 +5,7 @@ from django.db import models
 
 class mail(models.Model):
     email = models.CharField(max_length=50)
-    hashId = models.CharField()
+    hashId = models.CharField(max_length=50)
 
 
 class User(models.Model):
