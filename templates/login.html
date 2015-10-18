@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block navLeft %}{% endblock %}
+{% block navRight %}{% endblock %}
+{% block content %}
+    <div class="col-sm-5 col-sm-offset-1">
+        <div class="rtl irmitra" align="center">
+		{% if state %}
+		
+            <h1>سلام ، شما با موفقیت وارد سایت شده اید</h1>	
+	
+		{% else %}
+            <h1>اشکال در ورود به سایت!</h1>
+
+		{% endif %}
+		
+			
+        </div>
+    </div>
+
+{% endblock %}

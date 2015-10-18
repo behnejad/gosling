@@ -8,9 +8,7 @@ dajaxice_autodiscover()
 admin.autodiscover()
 
 urlpatterns = patterns('',
-	(r'^$', include('user.urls')),
-
-
+	(r'^', include('user.urls')),
 	(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
     (r'^admin/', include(admin.site.urls)),
     (r'^doc/', include('django.contrib.admindocs.urls')),

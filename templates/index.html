@@ -22,9 +22,9 @@
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                         <div class="panel-body">
-                            <form class="form-signin">
-                                <input type="email" id="inputEmail" class="form-control" placeholder="ایمیل" required autofocus>
-                                <input type="password" id="inputPassword" class="form-control" placeholder="گذرواژه" required>
+                            <form class="form-signin" action="/login/" method="post">
+                                <input name="email" type="email" id="inputEmail" class="form-control" placeholder="ایمیل" required autofocus>
+                                <input name="password" type="password" id="inputPassword" class="form-control" placeholder="گذرواژه" required>
                                 <button class="btn btn-lg btn-primary btn-block" type="submit">وارد شو</button>
                             </form>
                         </div>
