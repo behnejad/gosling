@@ -7,7 +7,6 @@ def index(request):
 	return render(request, 'index.html')
 
 
-<<<<<<< HEAD
 def login(request):
         
         state = False
@@ -21,10 +20,6 @@ def login(request):
                         
         
         return render(request, 'login.html', {'state': state })
-=======
-
-def login(request):
-	return render(request, 'index.html')
 
 
 
@@ -54,6 +49,3 @@ def password_reset_done(request):
 
 def password_reset_complete(request):
 	return render(request, 'index.html')
-
->>>>>>> cd0f8ab826dcb62e2400a74accdb9dde9a501757
-
