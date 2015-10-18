@@ -43,9 +43,6 @@ CSRF_COOKIE_AGE = 60 * 60 * 8
 STATICFILES_DIRS = (
     '/'.join((PROJECT_DIRS, "statics")),
 )
-TEMPLATE_DIRS = (
-    '/'.join((PROJECT_DIRS, 'templates')),
-)
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -57,15 +54,27 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
     'django.template.loaders.eggs.Loader',
 )
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'django.core.context_processors.request',
-    'django.core.context_processors.csrf',
-    'django.contrib.messages.context_processors.messages'
+TEMPLATES = (
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # 'BACKEND': 'django.template.backends.jinja2.Jinja2',
+        'DIRS': (
+            '/'.join((PROJECT_DIRS, 'templates')),
+        ),
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': (
+                'django.contrib.auth.context_processors.auth',
+                'django.core.context_processors.debug',
+                'django.core.context_processors.i18n',
+                'django.core.context_processors.media',
+                'django.core.context_processors.static',
+                'django.core.context_processors.request',
+                'django.core.context_processors.csrf',
+                'django.contrib.messages.context_processors.messages'
+            ),
+        },
+    },
 )
 MIDDLEWARE_CLASSES = (
     # 'django.middleware.cache.UpdateCacheMiddleware',
