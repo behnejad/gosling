@@ -12,7 +12,7 @@ def login(request):
         email = request.POST['email']
         password = request.POST['password']
 
-        if User.objects.get(emal=email).isValidPass(password):
+        if User.objects.get(email=email).isValidPass(password):
             state = True
 
     return render(request, 'login.html', {'state': state})
