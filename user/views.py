@@ -1,8 +1,5 @@
 from django.shortcuts import render, render_to_response
-
-
-def isValid(email, password):
-    return True
+from user.models import User
 
 
 def index(request):
@@ -15,7 +12,7 @@ def login(request):
         email = request.POST['email']
         password = request.POST['password']
 
-        if isValid(email, password):
+        if User.objects.get(emal=email).isValidPass(password):
             state = True
 
     return render(request, 'login.html', {'state': state})
