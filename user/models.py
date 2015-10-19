@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-
+from hashmanager import HashManager
 
 class mail(models.Model):
     email = models.CharField(max_length=50)
@@ -27,7 +27,8 @@ class User(models.Model):
         return ' '.join((self.first_name, self.last_name))
 
     def isValidPass(self, pwd=''):
-        return createkey(pwd, self.username) == self.password
+        hash = HashManager()
+        return hash.makeHash(pwd, self.username) == self.password
 
     @property
     def person(self):
@@ -35,7 +36,8 @@ class User(models.Model):
 
     @property
     def key(self):
-        return createkey(self.username, self.password, self.email)
+        hash = HashManager()
+        return hash.makeHash(self.username, self.password, self.email)
 
 
 

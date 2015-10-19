@@ -22,8 +22,7 @@
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                         <div class="panel-body">
-                            <form class="form-signin" action="/login/" method="post">
-							{% csrf_token %}
+                            <form class="form-signin" action="/login/" method="post">{% csrf_token %}
                                 <input name="email" type="email" id="inputEmail" class="form-control" placeholder="ایمیل" required autofocus>
                                 <input name="password" type="password" id="inputPassword" class="form-control" placeholder="گذرواژه" required>
                                 <button class="btn btn-lg btn-primary btn-block" type="submit">وارد شو</button>
@@ -42,7 +41,7 @@
                     </div>
                     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                         <div class="panel-body">
-                            <form class="form-signin">
+                            <form class="form-signin" method="post" action="">{% csrf_token %}
                                 <input type="email" id="inputEmail" class="form-control" placeholder="ایمیل" required autofocus>
                                 <br> با کلیک کردن شما <a href="#">قوانین </a> را قبول کرده اید<br> <br>
                                 <button class="btn btn-lg btn-primary btn-block" type="submit">ثبت نام</button>
