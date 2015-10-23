@@ -7,7 +7,7 @@
             <h1>به سایت آزمون گیری خودکار Gosling خوش آمدید</h1>
         </div>
     </div>
-    <div class="col-sm-3 col-sm-offset-2">
+    <div class="col-sm-4 col-sm-offset-2">
         <div class="rtl irmitra">
             <h1>سلام</h1>
             <div class="panel-group" id="accordion">
@@ -20,8 +20,14 @@
                             </a>
                         </h4>
                     </div>
-                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div id="collapseOne" class="panel-collapse collapse {% if panel == 1 or request.method == 'GET' %}in{% endif %}" role="tabpanel" aria-labelledby="headingOne">
                         <div class="panel-body">
+                            {% if fail %}
+                                <div class="alert alert-danger size85">{{ message }}</div>
+                            {% endif %}
+                            {% if success %}
+                                <div class="alert alert-success size85">{{ message }}</div>
+                            {% endif %}
                             <form class="form-signin" action="/login/" method="post">{% csrf_token %}
                                 <input name="email" type="email" id="inputEmail" class="form-control" placeholder="ایمیل" required autofocus>
                                 <input name="password" type="password" id="inputPassword" class="form-control" placeholder="گذرواژه" required>
@@ -39,12 +45,43 @@
                             </a>
                         </h4>
                     </div>
-                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div id="collapseTwo" class="panel-collapse collapse {% if panel == 2 %}in{% endif %}" role="tabpanel" aria-labelledby="headingTwo">
                         <div class="panel-body">
-                            <form class="form-signin" method="post" action="">{% csrf_token %}
-                                <input type="email" id="inputEmail" class="form-control" placeholder="ایمیل" required autofocus>
+                            {% if fail %}
+                                <div class="alert alert-danger size85">{{ message }}</div>
+                            {% endif %}
+                            {% if success %}
+                                <div class="alert alert-success size85">{{ message }}</div>
+                            {% endif %}
+                            <form class="form-signin" method="post" action="/register/">{% csrf_token %}
+                                <input type="email" id="inputEmail" class="form-control" placeholder="ایمیل" required autofocus name="email">
                                 <br> با کلیک کردن شما <a href="#">قوانین </a> را قبول کرده اید<br> <br>
                                 <button class="btn btn-lg btn-primary btn-block" type="submit">ثبت نام</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-danger">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <h4 class="panel-title">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+                               aria-expanded="false" aria-controls="collapseTwo">
+                                باز رمزت یادت رفت!!!
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse {% if panel == 3 %}in{% endif %}" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            {% if fail %}
+                                <div class="alert alert-danger size85">{{ message }}</div>
+                            {% endif %}
+                            {% if success %}
+                                <div class="alert alert-success size85">{{ message }}</div>
+                            {% endif %}
+                            <form class="form-signin" method="post" action="/forgot/">{% csrf_token %}
+                                <input type="email" id="inputEmail" class="form-control" placeholder="ایمیل" required autofocus name="email">
+                                <br>
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">یادم رفته دیگه</button>
                             </form>
                         </div>
                     </div>

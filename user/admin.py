@@ -1,6 +1,6 @@
 from django.contrib import admin
 from user import models
-from user.hashmanager import HashManager
+from user.hashmanager import makeHash
 from django.contrib.messages import constants
 
 
@@ -31,8 +31,7 @@ class UserAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if 'password' in form.changed_data:
             obj.request = False
-            hm = HashManager('md5')
-            obj.password = hm.makeHash(obj.password, obj.username)
+            obj.password = makeHash('md5', obj.password, obj.username)
         obj.save()
 
     def activateUser(self, request, queryset):
@@ -55,4 +54,14 @@ class GroupAdmin(admin.ModelAdmin):
     list_max_show_all = 30
     search_fields = ('name', 'admin__last_name', 'admin__first_name', 'admin__username')
 
+
+@admin.register(models.prereg)
+class registerAdmin(admin.ModelAdmin):
+    list_per_page = 15
+    list_max_show_all = 30
+    search_fields = ('mail', )
+    list_display = ('mail', 'smash')
+
+    def __unicode__(self):
+        return self.mail
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from hashmanager import HashManager
+from hashmanager import makeHash
 
 class mail(models.Model):
     email = models.CharField(max_length=50)
@@ -27,8 +27,7 @@ class User(models.Model):
         return ' '.join((self.first_name, self.last_name))
 
     def isValidPass(self, pwd=''):
-        hash = HashManager()
-        return hash.makeHash(pwd, self.username) == self.password
+        return makeHash(pwd, self.username) == self.password
 
     @property
     def person(self):
@@ -36,12 +35,15 @@ class User(models.Model):
 
     @property
     def key(self):
-        hash = HashManager()
-        return hash.makeHash(self.username, self.password, self.email)
-
+        return makeHash(self.username, self.password, self.email)
 
 
 class group(models.Model):
     name = models.CharField(max_length=50)
     admin = models.ForeignKey(User)
+
+
+class prereg(models.Model):
+    mail = models.CharField(max_length=30)
+    smash = models.CharField(max_length=50)
 
