@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from hashmanager import makeHash
+from user.hashmanager import makeHash
 
 class mail(models.Model):
     email = models.CharField(max_length=50)
