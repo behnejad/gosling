@@ -59,6 +59,29 @@ def forgot(request):
         return render(request, 'index.html', {'panel': 3, 'fail': True, 'message': 'دوست عزیز همچین چیزی وجود نداره'})
     return render(request, 'index.html', {'panel': 3, 'fail': True, 'message': 'عملیات با شکست مواجه شد'})
 
+
+def doreg(request):
+    if request.method == 'GET' and request.GET.has_key('id') and request.GET.has_key('mail'):
+        a = prereg.objects.filter(mail=request.GET['mail'], smash=request.GET['id'])
+        if a.count():
+            a[0].delete()
+            return render(request, 'register.html', {'mail': request.GET['mail']})
+
+    elif request.method == 'POST':
+        print request.POST.has_key('firstname')
+        print request.POST.has_key('lastname')
+        print request.POST.has_key('email')
+        print request.POST.has_key('password')
+
+        if request.POST.has_key('firstname') and request.POST.has_key('lastname') and \
+            request.POST.has_key('password') and request.POST.has_key('email'):
+            User(first_name=request.POST['firstname'], last_name=request.POST['lastname'], email=request.POST['email'],
+                 password=makeHash('md5', request.POST['password'], request.POST['email'])).save()
+            return render(request, 'index.html', {"mes": 'خوب به سلامتی ثبت نام شدی'})
+    return render(request, 'index.html', {'mes': "ههههه ههههه ههههه"})
+
+
+
 def password_change(request):
     return render(request, 'index.html')
 

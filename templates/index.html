@@ -5,6 +5,7 @@
     <div class="col-sm-5 col-sm-offset-1">
         <div class="rtl irmitra" align="center">
             <h1>به سایت آزمون گیری خودکار Gosling خوش آمدید</h1>
+            <h1>{{ mes }}</h1>
         </div>
     </div>
     <div class="col-sm-4 col-sm-offset-2">
@@ -20,7 +21,7 @@
                             </a>
                         </h4>
                     </div>
-                    <div id="collapseOne" class="panel-collapse collapse {% if panel == 1 or request.method == 'GET' %}in{% endif %}" role="tabpanel" aria-labelledby="headingOne">
+                    <div id="collapseOne" class="panel-collapse collapse {% if panel == 1 %}in{% endif %}" role="tabpanel" aria-labelledby="headingOne">
                         <div class="panel-body">
                             {% if fail %}
                                 <div class="alert alert-danger size85">{{ message }}</div>

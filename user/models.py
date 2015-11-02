@@ -14,7 +14,6 @@ class User(models.Model):
 
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    username = models.CharField(max_length=30, db_index=True)
     password = models.CharField(max_length=60, help_text='This is not real')
     email = models.EmailField(max_length=50)
     datecreate = models.DateTimeField()
@@ -27,7 +26,7 @@ class User(models.Model):
         return ' '.join((self.first_name, self.last_name))
 
     def isValidPass(self, pwd=''):
-        return makeHash(pwd, self.username) == self.password
+        return makeHash(pwd, self.email) == self.password
 
     @property
     def person(self):
@@ -35,7 +34,7 @@ class User(models.Model):
 
     @property
     def key(self):
-        return makeHash(self.username, self.password, self.email)
+        return makeHash(self.password, self.email)
 
 
 class group(models.Model):

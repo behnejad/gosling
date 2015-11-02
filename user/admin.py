@@ -6,19 +6,19 @@ from django.contrib.messages import constants
 
 @admin.register(models.User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'first_name', 'last_name', 'email', 'datecreate', 'request', 'isactivate', 'type')
+    list_display = ('first_name', 'last_name', 'email', 'datecreate', 'request', 'isactivate', 'type')
     ording = ('first_name', 'last_name', 'datecreate', 'email', 'isactive', 'type')
-    search_fields = ('first_name', 'last_name', 'datecreate', 'email', 'type', 'request', 'username')
+    search_fields = ('first_name', 'last_name', 'datecreate', 'email', 'type', 'request')
     list_per_page = 15
     list_max_show_all = 30
     list_filter = (('isactivate', admin.BooleanFieldListFilter), 'type', 'request')
     list_editable = ('isactivate', 'type', 'request')
-    list_display_links = ('username', )
+    list_display_links = ('email', )
     readonly_fields = ('key', )
     fieldsets = (
         ('Main Information', {
             'classes': ('wide', ),
-            'fields': (('first_name', 'last_name'), 'username', 'type'),
+            'fields': (('first_name', 'last_name'), 'type'),
         }
          ),
         ('Advanced options', {
