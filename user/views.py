@@ -24,7 +24,7 @@ def login(request):
             if a.ban:
                 return render(request, 'index.html', {'panel': 1, 'success': False, 'message': 'کاربر گرامی دستررسی شما قطع شده'})
 
-            if a.is_valid_pass(request.POST['password']):
+            if a.is_valid_pass('md5', request.POST['password']):
                 request.session['login'] = True
                 return HttpResponseRedirect('/home/')
 
@@ -108,7 +108,10 @@ def password_reset_done(request):
             return render(request, 'password_reset_done.html', {'success': False})
         else:
             if is_valid_token(request.POST['token'], user_obj) and request.POST['password'] == request.POST['password2']:
-                user_obj.password = request.POST['password']
+                #user_obj.password = request.POST['password']
+                user_obj.password = makeHash('md5', request.POST['password'].encode("utf8"), user_obj.email.encode("utf8"))
+                user_obj.save()
+
                 return render(request, 'password_reset_done.html', {'success': True})
             else:
                 return render(request, 'password_reset_done.html', {'success': False})

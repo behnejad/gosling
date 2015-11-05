@@ -27,8 +27,8 @@ class User(models.Model):
     def __unicode__(self):
         return ' '.join((self.first_name, self.last_name))
 
-    def is_valid_pass(self, pwd=''):
-        return makeHash(pwd, self.email) == self.password
+    def is_valid_pass(self, pwd, password):
+        return makeHash(pwd, password.encode("utf8"), self.email.encode("utf8")) == self.password
 
     @property
     def person(self):
@@ -40,11 +40,14 @@ class User(models.Model):
 
 
 class Reset(models.Model):
-    user = models.ForeignKey(User)
     hash_code = models.CharField(max_length=30)
     time_request = models.DateTimeField(default=datetime.now())
+    user = models.ForeignKey("User")
 
     def __str__(self):
+        return self.hash_code
+
+    def __unicode__(self):
         return self.hash_code
 
 

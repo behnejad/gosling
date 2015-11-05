@@ -31,7 +31,7 @@ class UserAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if 'password' in form.changed_data:
             obj.request = False
-            obj.password = makeHash('md5', obj.password, obj.username)
+            obj.password = makeHash('md5', obj.password.encode("utf8"), obj.email.encode("utf8"))
         obj.save()
 
     def activateUser(self, request, queryset):
