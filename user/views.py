@@ -14,30 +14,24 @@ def profile(request):
     return render(request, 'index.html')
 
 
-
-#Test for farsi encoding
-#سلام هومن خیلی چیزی
-#سلام امید کجایی؟!
-#"وات د هل"
-
 def login(request):
     if request.method == "POST":
         a = User.objects.filter(email=request.POST['email'])
         if a.count() == 1:
             a = a[0]
             if a.ban:
-                return render(request, 'index.html', {'panel': 1, 'fail': True, 'message': 'ع©ط§ط±ط¨ط± ع¯ط±ط§ظ…غŒ ط¯ط³طھط±ط±ط³غŒ ط´ظ…ط§ ظ‚ط·ط¹ ط´ط¯ظ‡'})
+                return render(request, 'index.html', {'panel': 1, 'fail': True, 'message': 'کاربر گرامی دستررسی شما قطع شده'})
 
             if a.isValidPass(request.POST['password']):
                 request.session['login'] = True
                 return HttpResponseRedirect('/home/')
 
-    return render(request, 'index.html', {'panel': 1, 'fail': True, 'message': 'ظˆط±ظˆط¯ ط¨ط§ ط´ع©ط³طھ ظ…ظˆط§ط¬ظ‡ ط´ط¯'})
+    return render(request, 'index.html', {'panel': 1, 'fail': True, 'message': 'ورود با شکست مواجه شد'})
 
 
 def logout(request):
     request.session.clear()
-    return render(request, 'index.html', {'panel': 1, 'success': True, 'message': 'ط´ظ…ط§ ط¨ط§ظ…ظˆظپظ‚غŒطھ ط®ط§ط±ط¬ ط´ط¯غŒط¯'})
+    return render(request, 'index.html', {'panel': 1, 'success': True, 'message': 'شما باموفقیت خارج شدید'})
 
 
 def register(request):
@@ -45,10 +39,10 @@ def register(request):
         if User.objects.filter(email=request.POST['email']).count() == 0:
             if prereg.objects.filter(mail=request.POST['email']).count() == 0:
                 prereg(mail=request.POST['email'], smash=makeHash('md5', request.POST['email'])).save()
-                return render(request, 'index.html', {'panel': 2, 'success': True, 'message': 'ط¯ظˆط³طھ ط¹ط²غŒط² ط¨ط±ظˆ ظ…غŒظ„طھظˆ ع†ع© ع©ظ†'})
-            return render(request, 'index.html', {'panel': 2, 'fail': True, 'message': 'ط¯ظˆط³طھ ط¹ط²غŒط² ط¨ط±ظˆ ظ…غŒظ„طھظˆ ع†ع© ع©ظ†'})
-        return render(request, 'index.html', {'panel': 2, 'fail': True, 'message': 'ط§غŒظ† ط§غŒظ…غŒظ„ ظˆط¬ظˆط¯ ط¯ط§ط±ظ‡ ط§ظ†ظ‚ط¯ ظ†ط²ظ†'})
-    return render(request, 'index.html', {'panel': 2, 'fail': True, 'message': 'ط«ط¨طھ ظ†ط§ظ… ط¨ط§ ط´ع©ط³طھ ظ…ظˆط§ط¬ظ‡ ط´ط¯'})
+                return render(request, 'index.html', {'panel': 2, 'success': True, 'message': 'دوست عزیز برو میلتو چک کن'})
+            return render(request, 'index.html', {'panel': 2, 'fail': True, 'message': 'دوست عزیز برو میلتو چک کن'})
+        return render(request, 'index.html', {'panel': 2, 'fail': True, 'message': 'این ایمیل وجود داره انقد نزن'})
+    return render(request, 'index.html', {'panel': 2, 'fail': True, 'message': 'ثبت نام با شکست مواجه شد'})
 
 
 def forgot(request):
@@ -57,13 +51,13 @@ def forgot(request):
         if a.count() == 1:
             a = a[0]
             if a.request:
-                return render(request, 'index.html', {'panel': 3, 'fail': True, 'message': 'ع†ظ†ط¯ ط¨ط§ط± غŒظ‡ ط¯ط±ط®ظˆط§ط³طھ ط±ظˆ ظ…غŒط¯غŒ'})
+                return render(request, 'index.html', {'panel': 3, 'fail': True, 'message': 'چند بار یه درخواست رو میدی'})
 
             a.request = True
             a.save()
-            return render(request, 'index.html', {'panel': 3, 'success': True, 'message': 'ط¯ظˆط³طھ ط¹ط²غŒط² ط¨ط±ظˆ ظ…غŒظ„طھظˆ ع†ع© ع©ظ†'})
-        return render(request, 'index.html', {'panel': 3, 'fail': True, 'message': 'ط¯ظˆط³طھ ط¹ط²غŒط² ظ‡ظ…ع†غŒظ† ع†غŒط²غŒ ظˆط¬ظˆط¯ ظ†ط¯ط§ط±ظ‡'})
-    return render(request, 'index.html', {'panel': 3, 'fail': True, 'message': 'ط¹ظ…ظ„غŒط§طھ ط¨ط§ ط´ع©ط³طھ ظ…ظˆط§ط¬ظ‡ ط´ط¯'})
+            return render(request, 'index.html', {'panel': 3, 'success': True, 'message': 'دوست عزیز برو میلتو چک کن'})
+        return render(request, 'index.html', {'panel': 3, 'fail': True, 'message': 'دوست عزیز همچین چیزی وجود نداره'})
+    return render(request, 'index.html', {'panel': 3, 'fail': True, 'message': 'عملیات با شکست مواجه شد'})
 
 
 def doreg(request):
@@ -83,8 +77,8 @@ def doreg(request):
             request.POST.has_key('password') and request.POST.has_key('email'):
             User(first_name=request.POST['firstname'], last_name=request.POST['lastname'], email=request.POST['email'],
                  password=makeHash('md5', request.POST['password'], request.POST['email'])).save()
-            return render(request, 'index.html', {"mes": 'ط®ظˆط¨ ط¨ظ‡ ط³ظ„ط§ظ…طھغŒ ط«ط¨طھ ظ†ط§ظ… ط´ط¯غŒ'})
-    return render(request, 'index.html', {'mes': "ظ‡ظ‡ظ‡ظ‡ظ‡ ظ‡ظ‡ظ‡ظ‡ظ‡ ظ‡ظ‡ظ‡ظ‡ظ‡"})
+            return render(request, 'index.html', {"mes": 'خوب به سلامتی ثبت نام شدی'})
+    return render(request, 'index.html', {'mes': "ههههه ههههه ههههه"})
 
 
 
