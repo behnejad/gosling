@@ -16,8 +16,8 @@ class User(models.Model):
     last_name = models.CharField(max_length=30)
     password = models.CharField(max_length=60, help_text='This is not real')
     email = models.EmailField(max_length=50)
-    datecreate = models.DateTimeField()
-    isactivate = models.BooleanField(default=False, choices=mode)
+    date_create = models.DateTimeField()
+    is_activate = models.BooleanField(default=False, choices=mode)
     type = models.CharField(max_length=1, choices=mode2, default='S')
     request = models.BooleanField(default=False, choices=mode)
     ban = models.BooleanField(default=False, choices=mode)
@@ -25,7 +25,7 @@ class User(models.Model):
     def __unicode__(self):
         return ' '.join((self.first_name, self.last_name))
 
-    def isValidPass(self, pwd=''):
+    def is_valid_pass(self, pwd=''):
         return makeHash(pwd, self.email) == self.password
 
     @property

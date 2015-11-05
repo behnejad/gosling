@@ -1,10 +1,10 @@
 import hashlib
 
 
-def makeHash(type, *args):
+def makeHash(_type, *args):
     result = ''
     for i in args:
-        tempstr = hashlib.new(type)
+        tempstr = hashlib.new(_type)
         tempstr.update(i)
         result += tempstr.hexdigest()
 

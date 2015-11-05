@@ -1,22 +1,18 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from user.models import User, prereg
-from datetime import datetime
 from user.hashmanager import makeHash
-
-def home(request):
-    return render(request, 'index.html')
 
 
 def profile(request):
     return render(request, 'index.html')
 
-#testing number 2
-#هومن بی ادبه
-#امید نیستش
-#محمد رضا هم دایورته
+
+def index(request):
+    return render(request, 'index.html')
+
 
 def login(request):
     if request.method == "POST":
@@ -26,7 +22,7 @@ def login(request):
             if a.ban:
                 return render(request, 'index.html', {'panel': 1, 'fail': True, 'message': 'کاربر گرامی دستررسی شما قطع شده'})
 
-            if a.isValidPass(request.POST['password']):
+            if a.is_valid_pass(request.POST['password']):
                 request.session['login'] = True
                 return HttpResponseRedirect('/home/')
 
@@ -64,7 +60,7 @@ def forgot(request):
     return render(request, 'index.html', {'panel': 3, 'fail': True, 'message': 'عملیات با شکست مواجه شد'})
 
 
-def doreg(request):
+def do_reg(request):
     if request.method == 'GET' and request.GET.has_key('id') and request.GET.has_key('mail'):
         a = prereg.objects.filter(mail=request.GET['mail'], smash=request.GET['id'])
         if a.count():
@@ -80,10 +76,9 @@ def doreg(request):
         if request.POST.has_key('firstname') and request.POST.has_key('lastname') and \
             request.POST.has_key('password') and request.POST.has_key('email'):
             User(first_name=request.POST['firstname'], last_name=request.POST['lastname'], email=request.POST['email'],
-                 password=makeHash('md5', request.POST['password'], request.POST['email'])).save()
+                 password = makeHash('md5', request.POST['password'], request.POST['email'])).save()
             return render(request, 'index.html', {"mes": 'خوب به سلامتی ثبت نام شدی'})
     return render(request, 'index.html', {'mes': "ههههه ههههه ههههه"})
-
 
 
 def password_change(request):

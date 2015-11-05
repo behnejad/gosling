@@ -6,13 +6,13 @@ from django.contrib.messages import constants
 
 @admin.register(models.User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'email', 'datecreate', 'request', 'isactivate', 'type')
-    ording = ('first_name', 'last_name', 'datecreate', 'email', 'isactive', 'type')
-    search_fields = ('first_name', 'last_name', 'datecreate', 'email', 'type', 'request')
+    list_display = ('first_name', 'last_name', 'email', 'date_create', 'request', 'is_activate', 'type')
+    ording = ('first_name', 'last_name', 'date_create', 'email', 'isactive', 'type')
+    search_fields = ('first_name', 'last_name', 'date_create', 'email', 'type', 'request')
     list_per_page = 15
     list_max_show_all = 30
-    list_filter = (('isactivate', admin.BooleanFieldListFilter), 'type', 'request')
-    list_editable = ('isactivate', 'type', 'request')
+    list_filter = (('is_activate', admin.BooleanFieldListFilter), 'type', 'request')
+    list_editable = ('is_activate', 'type', 'request')
     list_display_links = ('email', )
     readonly_fields = ('key', )
     fieldsets = (
@@ -23,7 +23,7 @@ class UserAdmin(admin.ModelAdmin):
          ),
         ('Advanced options', {
             'classes': ('wide', 'extrapretty'),  # 'collapse',
-            'fields': ('email', 'key', 'password', 'datecreate', 'isactivate', 'request')}
+            'fields': ('email', 'key', 'password', 'date_create', 'is_activate', 'request')}
          ),
     )
     actions = ('delete_selected', 'activateUser', 'deActivateUser')
@@ -35,13 +35,13 @@ class UserAdmin(admin.ModelAdmin):
         obj.save()
 
     def activateUser(self, request, queryset):
-        queryset.update(isactivate=True)
+        queryset.update(is_activate=True)
         self.message_user(request, "%s Account(s) successfully activated." % queryset.count(), constants.SUCCESS)
 
     activateUser.short_description = "Active selected account(s)"
 
     def deActivateUser(self, request, queryset):
-        queryset.update(isactivate=False)
+        queryset.update(is_activate=False)
         self.message_user(request, "%s Account(s) successfully deactivated." % queryset.count(), constants.WARNING)
 
     deActivateUser.short_description = "Deactivate selected account(s)"
