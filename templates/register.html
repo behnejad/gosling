@@ -23,12 +23,6 @@
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                         <div class="panel-body">
-                            {% if fail %}
-                                <div class="alert alert-danger size85">{{ message }}</div>
-                            {% endif %}
-                            {% if success %}
-                                <div class="alert alert-success size85">{{ message }}</div>
-                            {% endif %}
                             <form class="form-signin" action="/user/do_reg/" method="post">{% csrf_token %}
                                 <input name="email" type="email" hidden value="{{ mail }}">
                                 <input name="firstname" type="text" class="form-control" placeholder="اسم" required>

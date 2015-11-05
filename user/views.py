@@ -20,13 +20,13 @@ def login(request):
         if a.count() == 1:
             a = a[0]
             if a.ban:
-                return render(request, 'index.html', {'panel': 1, 'fail': True, 'message': 'کاربر گرامی دستررسی شما قطع شده'})
+                return render(request, 'index.html', {'panel': 1, 'success': False, 'message': 'کاربر گرامی دستررسی شما قطع شده'})
 
             if a.is_valid_pass(request.POST['password']):
                 request.session['login'] = True
                 return HttpResponseRedirect('/home/')
 
-    return render(request, 'index.html', {'panel': 1, 'fail': True, 'message': 'ورود با شکست مواجه شد'})
+    return render(request, 'index.html', {'panel': 1, 'success': False, 'message': 'ورود با شکست مواجه شد'})
 
 
 def logout(request):
@@ -40,9 +40,9 @@ def register(request):
             if prereg.objects.filter(mail=request.POST['email']).count() == 0:
                 prereg(mail=request.POST['email'], smash=makeHash('md5', request.POST['email'])).save()
                 return render(request, 'index.html', {'panel': 2, 'success': True, 'message': 'دوست عزیز برو میلتو چک کن'})
-            return render(request, 'index.html', {'panel': 2, 'fail': True, 'message': 'دوست عزیز برو میلتو چک کن'})
-        return render(request, 'index.html', {'panel': 2, 'fail': True, 'message': 'این ایمیل وجود داره انقد نزن'})
-    return render(request, 'index.html', {'panel': 2, 'fail': True, 'message': 'ثبت نام با شکست مواجه شد'})
+            return render(request, 'index.html', {'panel': 2, 'success': False, 'message': 'دوست عزیز برو میلتو چک کن'})
+        return render(request, 'index.html', {'panel': 2, 'success': False, 'message': 'این ایمیل وجود داره انقد نزن'})
+    return render(request, 'index.html', {'panel': 2, 'success': False, 'message': 'ثبت نام با شکست مواجه شد'})
 
 
 def forgot(request):
@@ -51,13 +51,13 @@ def forgot(request):
         if a.count() == 1:
             a = a[0]
             if a.request:
-                return render(request, 'index.html', {'panel': 3, 'fail': True, 'message': 'چند بار یه درخواست رو میدی'})
+                return render(request, 'index.html', {'panel': 3, 'success': False, 'message': 'چند بار یه درخواست رو میدی'})
 
             a.request = True
             a.save()
             return render(request, 'index.html', {'panel': 3, 'success': True, 'message': 'دوست عزیز برو میلتو چک کن'})
-        return render(request, 'index.html', {'panel': 3, 'fail': True, 'message': 'دوست عزیز همچین چیزی وجود نداره'})
-    return render(request, 'index.html', {'panel': 3, 'fail': True, 'message': 'عملیات با شکست مواجه شد'})
+        return render(request, 'index.html', {'panel': 3, 'success': False, 'message': 'دوست عزیز همچین چیزی وجود نداره'})
+    return render(request, 'index.html', {'panel': 3, 'success': True, 'message': 'عملیات با شکست مواجه شد'})
 
 
 def do_reg(request):
@@ -79,6 +79,10 @@ def do_reg(request):
                  password = makeHash('md5', request.POST['password'], request.POST['email'])).save()
             return render(request, 'index.html', {"mes": 'خوب به سلامتی ثبت نام شدی'})
     return render(request, 'index.html', {'mes': "ههههه ههههه ههههه"})
+
+
+def policy(request):
+    return render(request, 'policy.html', {'panel': 2})
 
 
 def password_change(request):

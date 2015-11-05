@@ -5,7 +5,13 @@
     <div class="col-sm-5 col-sm-offset-1">
         <div class="rtl irmitra" align="center">
             <h1>به سایت آزمون گیری خودکار Gosling خوش آمدید</h1>
-            <h1>{{ mes }}</h1>
+			
+			<br>
+			<br>
+			محمد رضا حیدریان:
+			قوانین رو بچپون اینجا
+			!!!
+			
         </div>
     </div>
     <div class="col-sm-4 col-sm-offset-2">
@@ -23,14 +29,7 @@
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse {% if panel == 1 %}in{% endif %}" role="tabpanel" aria-labelledby="headingOne">
                         <div class="panel-body">
-
-                            {% if success %}
-                            {% endif %}
-
-                            {% if panel == 1 %}
-                                <div class="alert alert-success size85">{{ message }}</div>
-                            {% endif %}
-
+						
                             <form class="form-signin" action="/user/login/" method="post">{% csrf_token %}
                                 <input name="email" type="email" id="inputEmail" class="form-control" placeholder="ایمیل" required autofocus>
                                 <input name="password" type="password" id="inputPassword" class="form-control" placeholder="گذرواژه" required>
@@ -50,15 +49,10 @@
                     </div>
                     <div id="collapseTwo" class="panel-collapse collapse {% if panel == 2 %}in{% endif %}" role="tabpanel" aria-labelledby="headingTwo">
                         <div class="panel-body">
-                            {% if success %}
-                            {% endif %}
-
-                            {% if panel == 2 %}
-                                <div class="alert alert-success size85">{{ message }}</div>
-                            {% endif %}
+						
                             <form class="form-signin" method="post" action="/user/register/">{% csrf_token %}
                                 <input type="email" id="inputEmail" class="form-control" placeholder="ایمیل" required autofocus name="email">
-                                <br> با کلیک کردن شما <a href="/policy">قوانین </a> را قبول کرده اید<br> <br>
+                                <br> با کلیک کردن شما <a href="#">قوانین </a> را قبول کرده اید<br> <br>
                                 <button class="btn btn-lg btn-primary btn-block" type="submit">ثبت نام</button>
                             </form>
                         </div>
@@ -75,12 +69,6 @@
                     </div>
                     <div id="collapseThree" class="panel-collapse collapse {% if panel == 3 %}in{% endif %}" role="tabpanel" aria-labelledby="headingTwo">
                         <div class="panel-body">
-                            {% if success %}
-                            {% endif %}
-
-                            {% if panel == 3 %}
-                                <div class="alert alert-success size85">{{ message }}</div>
-                            {% endif %}
                             <form class="form-signin" method="post" action="/user/forgot/">{% csrf_token %}
                                 <input type="email" id="inputEmail" class="form-control" placeholder="ایمیل" required autofocus name="email">
                                 <br>
