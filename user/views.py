@@ -13,6 +13,10 @@ def home(request):
 def profile(request):
     return render(request, 'index.html')
 
+#testing number 2
+#هومن بی ادبه
+#امید نیستش
+#محمد رضا هم دایورته
 
 def login(request):
     if request.method == "POST":
