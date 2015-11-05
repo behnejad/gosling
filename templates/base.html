@@ -24,7 +24,9 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand">{% block sitename %}Gosling Test System{% endblock %}</a>
+			<a class="navbar-brand">{% block sitename %}Gosling Test System
+
+                {% endblock %}</a>
 		</div>
 		<div class="collapse navbar-collapse" id="nav-bar">
 			{% block navLeft %}
@@ -63,10 +65,23 @@
 {% block footer %}
 <footer class="myfooter">
 	<div class="container" align="center">
+
+		<div class="text-muted btn-group">
+			<a class="text-info btn btn-default" href="/about">درباره ما</a>
+		</div>
+        <div class="text-muted btn-group">
+			<a class="text-info btn btn-default" href="/">صفحه اصلی</a>
+		</div>
+	</div>
+
+    <div class="container" align="center">
+
 		<div class="text-muted btn-group">
 			<a class="text-info btn btn-default" href="#"> &copy; 2015 IUST AMC</a>
 		</div>
+
 	</div>
+
 </footer>
 {% endblock %}
 </body>

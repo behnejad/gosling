@@ -81,10 +81,6 @@ def do_reg(request):
     return render(request, 'index.html', {'mes': "ههههه ههههه ههههه"})
 
 
-def policy(request):
-    return render(request, 'policy.html', {'panel': 2})
-
-
 def password_change(request):
     return render(request, 'index.html')
 
