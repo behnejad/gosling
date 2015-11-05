@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from user.models import User, prereg
 from user.hashmanager import makeHash
+from user.hashmanager import is_valid_token
+from user.hashmanager import generate_link_for_reset_pass
 
 
 def profile(request):
@@ -55,6 +57,7 @@ def forgot(request):
 
             a.request = True
             a.save()
+            generate_link_for_reset_pass(a)
             return render(request, 'index.html', {'panel': 3, 'success': True, 'message': 'دوست عزیز برو میلتو چک کن'})
         return render(request, 'index.html', {'panel': 3, 'success': False, 'message': 'دوست عزیز همچین چیزی وجود نداره'})
     return render(request, 'index.html', {'panel': 3, 'success': True, 'message': 'عملیات با شکست مواجه شد'})
@@ -90,11 +93,28 @@ def password_change_done(request):
 
 
 def password_reset(request):
-    return render(request, 'index.html')
+    if request.GET.has_key('token') and request.GET.has_key('user_id'):
+        token = request.GET['token']
+        user_id = request.GET['user_id']
+        return render(request, 'pass_reset.html', {'success': True, 'token': token, 'user_id': user_id})
+    return render(request, 'pass_reset.html', {'success': False})
 
 
 def password_reset_done(request):
-    return render(request, 'index.html')
+    if request.POST.has_key('password') and request.POST.has_key('password2') and request.POST.has_key('token') and request.POST.has_key('user_id'):
+        try:
+            user_obj = User.objects.get(id=request.POST['user_id'])
+        except User.DoesNotExist:
+            return render(request, 'password_reset_done.html', {'success': False})
+        else:
+            if is_valid_token(request.POST['token'], user_obj) and request.POST['password'] == request.POST['password2']:
+                user_obj.password = request.POST['password']
+                return render(request, 'password_reset_done.html', {'success': True})
+            else:
+                return render(request, 'password_reset_done.html', {'success': False})
+
+    else:
+        return render(request, 'password_reset_done.html', {'success': False})
 
 
 def password_reset_complete(request):

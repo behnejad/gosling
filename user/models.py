@@ -2,6 +2,8 @@
 
 from django.db import models
 from user.hashmanager import makeHash
+from datetime import datetime
+
 
 class mail(models.Model):
     email = models.CharField(max_length=50)
@@ -35,6 +37,15 @@ class User(models.Model):
     @property
     def key(self):
         return makeHash(self.password, self.email)
+
+
+class Reset(models.Model):
+    user = models.ForeignKey(User)
+    hash_code = models.CharField(max_length=30)
+    time_request = models.DateTimeField(default=datetime.now())
+
+    def __str__(self):
+        return self.hash_code
 
 
 class group(models.Model):
