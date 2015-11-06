@@ -141,5 +141,3 @@ def password_reset_complete(request):
     return render(request, 'index.html')
 
 
-def group(request):
-    return render(request, 'index.html')

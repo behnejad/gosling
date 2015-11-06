@@ -5,14 +5,22 @@ def index(request):
     return render(request, 'index.html')
 
 
+def exam(request):
+    return render(request, 'index.html')
+
+
+def exam_list(request):
+    return render(request, 'index.html')
+
+
 def group(request):
     return render(request, 'index.html')
 
 
-def list(request):
+def group_list(request):
     return render(request, 'index.html')
 
 
-def problems(request):
+def problem(request):
     return render(request, 'index.html')
 

@@ -4,7 +4,9 @@ from exam import views
 
 urlpatterns = (
     url(r'^$', views.index, name='index'),
-    url(r'^List/$', views.list, name='exam list'),
-    url(r'^Groups/$', views.group, name='exam group'),
-    url(r'^Problems/$', views.problems, name='exam problem'),
+    url(r'^exam/$', views.exam, name='exam'),
+    url(r'^examList/$', views.exam_list, name='exam list'),
+    url(r'^group/$', views.group, name='group'),
+    url(r'^groupList/$', views.group_list, name='group list'),
+    url(r'^problem/$', views.problem, name='exam problem'),
 )

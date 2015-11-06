@@ -2,8 +2,7 @@
 
 from django.db import models
 from user.hashmanager import makeHash
-from datetime import datetime
-
+from django.utils import timezone
 
 class mail(models.Model):
     email = models.CharField(max_length=50)
@@ -41,7 +40,7 @@ class User(models.Model):
 
 class Reset(models.Model):
     hash_code = models.CharField(max_length=30)
-    time_request = models.DateTimeField(default=datetime.now())
+    time_request = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey("User")
 
     def __str__(self):
