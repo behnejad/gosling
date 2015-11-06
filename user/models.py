@@ -27,8 +27,8 @@ class User(models.Model):
     def __unicode__(self):
         return ' '.join((self.first_name, self.last_name))
 
-    def is_valid_pass(self, pwd, password):
-        return makeHash(pwd, password.encode("utf8"), self.email.encode("utf8")) == self.password
+    def is_valid_pass(self, pwd):
+        return makeHash('md5', pwd.encode('utf-8'), self.email.encode('utf-8')) == self.password
 
     @property
     def person(self):
@@ -36,7 +36,7 @@ class User(models.Model):
 
     @property
     def key(self):
-        return makeHash(self.password, self.email)
+        makeHash('md5', self.password.encode('utf-8'), self.email.encode('utf-8'))
 
 
 class Reset(models.Model):

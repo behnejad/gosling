@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block navLeft %}{% endblock %}
+{% block content %}
+    <div class="col-sm-5 col-sm-offset-1">
+        <div class="rtl irmitra" align="center">
+            <h1>{{ request.session.first_name }}</h1>
+            <h1>
+                {% if request.GET.mes == '1' %}
+                    تغییر موفق
+                {% elif request.GET.mes == '0' %}
+                    تغییر ناموفق
+                {% endif %}
+            </h1>
+        </div>
+    </div>
+    <div class="col-sm-4 col-sm-offset-2">
+        <div class="rtl irmitra">
+            <h1>سلام</h1>
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-success">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
+                               aria-controls="collapseOne">
+                                گروه ها
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <ul class="list-group" style="padding-right:0px">
+                              <li class="list-group-item"><a href="/group?id=10">گروه شماره 1</a></li>
+                              <li class="list-group-item"><a href="/group?id=11">گروه شماره 2</a></li>
+                              <li class="list-group-item"><a href="/group?id=12">گروه شماره 3</a></li>
+                            </ul>
+                            <h4><a href="/groupslist/">دیدن همه...</a></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <h4 class="panel-title">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                               aria-expanded="false" aria-controls="collapseTwo">
+                                امتحانات
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            <ul class="list-group" style="padding-right:0px">
+                              <li class="list-group-item"><a href="/exam?id=5">امتحان میان ترم ریاضی</a></li>
+                              <li class="list-group-item"><a href="/exam?id=7">امتحان پایان ترم فیزیک</a></li>
+                              <li class="list-group-item"><a href="/exam?id=15">کوئیز دینی</a></li>
+                            </ul>
+                            <h4><a href="/examslist/">دیدن همه...</a></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-danger">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <h4 class="panel-title">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+                               aria-expanded="false" aria-controls="collapseTwo">
+                                تنضیمات
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            
+                            <form class="form-signin" method="post" action="/password_change/">{% csrf_token %}
+                                <input type="password" id="inputPassword" class="form-control" placeholder="رمز جدید" required autofocus name="password">
+                                <br>
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">تغییر رمز</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

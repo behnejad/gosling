@@ -6,10 +6,16 @@ from user.models import User, prereg
 from user.hashmanager import makeHash
 from user.hashmanager import is_valid_token
 from user.hashmanager import generate_link_for_reset_pass
+import datetime
 
 
 def profile(request):
-    return render(request, 'index.html')
+    return render(request, 'profile.html')
+
+
+def close(request):
+    request.session.flush()
+    return HttpResponseRedirect('/')
 
 
 def index(request):
@@ -26,6 +32,8 @@ def login(request):
 
             if a.is_valid_pass('md5', request.POST['password']):
                 request.session['login'] = True
+                request.session['email'] = a.email
+                request.session['first_name'] = a.first_name
                 return HttpResponseRedirect('/home/')
 
     return render(request, 'index.html', {'panel': 1, 'success': False, 'message': 'ورود با شکست مواجه شد'})
@@ -64,28 +72,33 @@ def forgot(request):
 
 
 def do_reg(request):
-    if request.method == 'GET' and request.GET.has_key('id') and request.GET.has_key('mail'):
+    if request.method == 'GET' and request.GET.get('id') and request.GET.get('mail'):
         a = prereg.objects.filter(mail=request.GET['mail'], smash=request.GET['id'])
         if a.count():
             a[0].delete()
             return render(request, 'register.html', {'mail': request.GET['mail']})
 
     elif request.method == 'POST':
-        print request.POST.has_key('firstname')
-        print request.POST.has_key('lastname')
-        print request.POST.has_key('email')
-        print request.POST.has_key('password')
 
-        if request.POST.has_key('firstname') and request.POST.has_key('lastname') and \
-            request.POST.has_key('password') and request.POST.has_key('email'):
+        if request.POST.get('firstname') and request.POST.get('lastname') and \
+            request.POST.get('password') and request.POST.get('email'):
             User(first_name=request.POST['firstname'], last_name=request.POST['lastname'], email=request.POST['email'],
-                 password = makeHash('md5', request.POST['password'], request.POST['email'])).save()
+                 password=makeHash('md5', request.POST['password'].encode('utf-8'), request.POST['email'].encode('utf-8')),
+                 datecreate=datetime.now()).save()
             return render(request, 'index.html', {"mes": 'خوب به سلامتی ثبت نام شدی'})
     return render(request, 'index.html', {'mes': "ههههه ههههه ههههه"})
 
 
 def password_change(request):
-    return render(request, 'index.html')
+    if request.method == 'POST':
+        if request.POST.get('password'):
+            a = User.objects.filter(email=request.session['email'])
+            if len(a) > 0:
+                a = a[0]
+                a.password = makeHash('md5', request.POST.get('password').encode('utf-8'), request.session['email'].encode('utf-8'))
+                a.save()
+                return HttpResponseRedirect('/home?mes=1')
+    return HttpResponseRedirect('/home?mes=0')
 
 
 def password_change_done(request):
