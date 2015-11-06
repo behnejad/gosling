@@ -2,10 +2,11 @@
 
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from user.models import User, prereg
+from user.models import User, prereg, Reset
 from user.hashmanager import makeHash
-from user.hashmanager import is_valid_token
-from user.hashmanager import generate_link_for_reset_pass
+from user.tokenmanager import is_valid_token
+from user.tokenmanager import generate_link_for_reset_pass
+from user.tokenmanager import token_is_expired
 import datetime
 
 
@@ -60,13 +61,16 @@ def forgot(request):
         a = User.objects.filter(email=request.POST['email'])
         if a.count() == 1:
             a = a[0]
-            if a.request:
-                return render(request, 'index.html', {'panel': 3, 'success': False, 'message': 'چند بار یه درخواست رو میدی'})
+            l = Reset.objects.filter(user_id=a.id)
+            if a.count() == 1:
+                l = l[0]
+                if not token_is_expired(l.time_request):
+                    return render(request, 'index.html', {'panel': 3, 'success': False, 'message': 'دوست عزیز قبلا لینک تغییر رمز به شما ارسال شده است.'})
+                else:
+                    l.delete()
+                    generate_link_for_reset_pass(a)
+                    return render(request, 'index.html', {'panel': 3, 'success': True, 'message': 'دوست عزیز برو میلتو چک کن'})
 
-            a.request = True
-            a.save()
-            generate_link_for_reset_pass(a)
-            return render(request, 'index.html', {'panel': 3, 'success': True, 'message': 'دوست عزیز برو میلتو چک کن'})
         return render(request, 'index.html', {'panel': 3, 'success': False, 'message': 'دوست عزیز همچین چیزی وجود نداره'})
     return render(request, 'index.html', {'panel': 3, 'success': True, 'message': 'عملیات با شکست مواجه شد'})
 
