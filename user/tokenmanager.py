@@ -9,7 +9,7 @@ def generate_link_for_reset_pass(user_obj):
 
     reset_obj = Reset(hash_code=key, time_request=datetime.now(), user_id=user_obj.id)
     reset_obj.save()
-    print "Your Url For Rest Password is :" + "http://127.0.0.1:8000/user/password_reset?user_id=" + user_obj.id + "&token=" + key
+    print "Your Url For Rest Password is :" + "http://127.0.0.1:8000/password_reset?user_id=" + str(user_obj.id) + "&token=" + key
     print "this link work only 2 mins!!!!"
 
 
