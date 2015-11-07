@@ -5,7 +5,7 @@ def index(request):
     return render(request, 'index.html')
 
 
-def exam(request):
+def exam(request, eID):
     return render(request, 'index.html')
 
 
@@ -13,7 +13,7 @@ def exam_list(request):
     return render(request, 'index.html')
 
 
-def group(request):
+def group(request, eID):
     return render(request, 'index.html')
 
 

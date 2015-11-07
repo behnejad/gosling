@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block navLeft %}{% endblock %}
 {% block navRight %}{% endblock %}
 {% block content %}
@@ -29,7 +30,7 @@
                             {% if success %}
                                 <div class="alert alert-success size85">{{ message }}</div>
                             {% endif %}
-                            <form class="form-signin" action="/user/do_reg/" method="post">{% csrf_token %}
+                            <form class="form-signin" action="{% url 'doReg' %}" method="post">{% csrf_token %}
                                 <input name="email" type="email" hidden value="{{ mail }}">
                                 <input name="firstname" type="text" class="form-control" placeholder="اسم" required>
                                 <input name="lastname" type="text" class="form-control" placeholder="فامیل" required>

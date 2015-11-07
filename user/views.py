@@ -81,9 +81,7 @@ def do_reg(request):
         if a.count():
             a[0].delete()
             return render(request, 'register.html', {'mail': request.GET['mail']})
-
     elif request.method == 'POST':
-
         if request.POST.get('firstname') and request.POST.get('lastname') and \
             request.POST.get('password') and request.POST.get('email'):
             User(first_name=request.POST['firstname'], last_name=request.POST['lastname'], email=request.POST['email'],

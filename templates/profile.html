@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block navLeft %}{% endblock %}
 {% block content %}
     <div class="col-sm-5 col-sm-offset-1">
@@ -29,11 +30,11 @@
                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                         <div class="panel-body">
                             <ul class="list-group" style="padding-right:0px">
-                              <li class="list-group-item"><a href="/exam/group?id=10">گروه شماره 1</a></li>
-                              <li class="list-group-item"><a href="/exam/group?id=11">گروه شماره 2</a></li>
-                              <li class="list-group-item"><a href="/exam/group?id=12">گروه شماره 3</a></li>
+                              <li class="list-group-item"><a href="{% url 'group' '1' %}">گروه شماره 1</a></li>
+                              <li class="list-group-item"><a href="{% url 'group' '2' %}">گروه شماره 2</a></li>
+                              <li class="list-group-item"><a href="{% url 'group' '3' %}">گروه شماره 3</a></li>
                             </ul>
-                            <h4><a href="/exam/groupList/">دیدن همه...</a></h4>
+                            <h4><a href="{% url 'groupList' %}">دیدن همه...</a></h4>
                         </div>
                     </div>
                 </div>
@@ -49,11 +50,11 @@
                     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                         <div class="panel-body">
                             <ul class="list-group" style="padding-right:0px">
-                              <li class="list-group-item"><a href="/exam/exam?id=5">امتحان میان ترم ریاضی</a></li>
-                              <li class="list-group-item"><a href="/exam/exam?id=7">امتحان پایان ترم فیزیک</a></li>
-                              <li class="list-group-item"><a href="/exam/exam?id=15">کوئیز دینی</a></li>
+                              <li class="list-group-item"><a href="{% url 'exam' '1' %}">امتحان میان ترم ریاضی</a></li>
+                              <li class="list-group-item"><a href="{% url 'exam' '2' %}">امتحان پایان ترم فیزیک</a></li>
+                              <li class="list-group-item"><a href="{% url 'exam' '3' %}">کوئیز دینی</a></li>
                             </ul>
-                            <h4><a href="/exam/examList/">دیدن همه...</a></h4>
+                            <h4><a href="{% url 'examList' %}">دیدن همه...</a></h4>
                         </div>
                     </div>
                 </div>
@@ -69,7 +70,7 @@
                     <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                         <div class="panel-body">
                             
-                            <form class="form-signin" method="post" action="/user/password_change/">{% csrf_token %}
+                            <form class="form-signin" method="post" action="{% url 'passwordChange' %}">{% csrf_token %}
                                 <input type="password" id="inputPassword" class="form-control" placeholder="رمز جدید" required autofocus name="password">
                                 <br>
                                 <button class="btn btn-lg btn-primary btn-block" type="submit">تغییر رمز</button>

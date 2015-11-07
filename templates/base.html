@@ -1,3 +1,4 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html>
 	<head lang="en">
@@ -46,10 +47,10 @@
 							<a class="dropdown-toggle irmitra bold" data-toggle="dropdown">تنظیمات<span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu" style="text-align: left">
 								{% block extraDrop %}{% endblock %}
-								<li><a href="/user/profile" class="irmitra bold size18">حساب کاربری
-									 <span class="glyphicon glyphicon-user navbar-right"></span></a>
-								</li>
-								<li><a href="/user/close" class="irmitra bold size18">خروج
+								<li><a href="{% url 'profile' %}" class="irmitra bold size18">حساب کاربری
+									 <span class="glyphicon glyphico</li>n-user navbar-right"></span></a>
+
+								<li><a href="{% url 'close' %}" class="irmitra bold size18">خروج
 								   <span class="glyphicon glyphicon-off navbar-right"></span></a>
 								</li>
 							</ul>
@@ -67,7 +68,7 @@
 	<div class="container" align="center">
 
 		<div class="text-muted btn-group">
-			<a class="text-info btn btn-default" href="/about">درباره ما</a>
+			<a class="text-info btn btn-default" href="{% url 'about' %}">درباره ما</a>
 		</div>
         <div class="text-muted btn-group">
 			<a class="text-info btn btn-default" href="/">صفحه اصلی</a>

@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block navLeft %}{% endblock %}
 {% block navRight %}{% endblock %}
 {% block content %}
 <div class="rtl irmitra">
     {% if success  %}
 
-    <form class="form-signin" action="/user/password_reset/done/" method="post">{% csrf_token %}
+    <form class="form-signin" action="{% url 'passwordResetDone' %}" method="post">{% csrf_token %}
         <input name="password" type="password" id="inputPassword" class="form-control" placeholder="گذرواژه" required>
         <input name="password2" type="password" id="inputPassword" class="form-control" placeholder="تکرار گذرواژه" required>
         <input type='hidden' name="token" type="text" value='{{ token }}'>

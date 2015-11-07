@@ -9,9 +9,9 @@ admin.autodiscover()
 
 urlpatterns = (
     url(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
+    url(r'^', include('user.urls')),
     url(r'^policy/', policy, name='policy'),
     url(r'^about/', about, name='about'),
-    url(r'^user/', include('user.urls')),
     url(r'^exam/', include('exam.urls')),
     url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
     url(r'^admin/', include(admin.site.urls)),
