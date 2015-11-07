@@ -22,7 +22,7 @@ class UserAdmin(admin.ModelAdmin):
         }
          ),
         ('Advanced options', {
-            'classes': ('wide', 'extrapretty'),  # 'collapse',
+            'classes': ('wide', 'extrapretty'),
             'fields': ('email', 'key', 'password', 'date_create', 'is_activate', 'request')}
          ),
     )
@@ -52,7 +52,7 @@ class UserAdmin(admin.ModelAdmin):
 class GroupAdmin(admin.ModelAdmin):
     list_per_page = 15
     list_max_show_all = 30
-    search_fields = ('name', 'admin__last_name', 'admin__first_name', 'admin__username')
+    search_fields = ('name', 'admin__last_name', 'admin__first_name')
 
 
 @admin.register(models.prereg)
@@ -62,6 +62,16 @@ class registerAdmin(admin.ModelAdmin):
     search_fields = ('mail', )
     list_display = ('mail', 'smash')
 
-    def __unicode__(self):
-        return self.mail
 
+@admin.register(models.Reset)
+class ResetAdmin(admin.ModelAdmin):
+    list_display = ('user', 'time_request', 'hash_code')
+    list_per_page = 15
+    list_max_show_all = 30
+
+@admin.register(models.mail)
+class MailAdmin(admin.ModelAdmin):
+    list_display = ('email', 'hashId')
+    list_per_page = 15
+    list_max_show_all = 30
+    

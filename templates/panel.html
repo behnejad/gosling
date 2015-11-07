@@ -1,85 +1,92 @@
 {% load i18n %}
 <div class="col-sm-4 col-sm-offset-2">
-        <div class="rtl irmitra">
-            <h1>سلام</h1>
-            <div class="panel-group" id="accordion">
-                <div class="panel panel-success">
-                    <div class="panel-heading" role="tab" id="headingOne">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
-                               aria-controls="collapseOne">
-                                نظرت راجع به ورود به سيستم چيه؟
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse {% if panel == 1 %}in{% endif %}" role="tabpanel" aria-labelledby="headingOne">
-                        <div class="panel-body">
-
-                            {% if success %}
-                            {% endif %}
-
-                            {% if panel == 1 and message != Null %}
-                                <div class="alert alert-success size85">{{ message }}</div>
-                            {% endif %}
-
-                            <form class="form-signin" action="{% url 'login' %}" method="post">{% csrf_token %}
-                                <input name="email" type="email" id="inputEmail" class="form-control" placeholder="ايميل" required autofocus>
-                                <input name="password" type="password" id="inputPassword" class="form-control" placeholder="گذرواژه" required>
-                                <button class="btn btn-lg btn-primary btn-block" type="submit">وارد شو</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-info">
-                    <div class="panel-heading" role="tab" id="headingTwo">
-                        <h4 class="panel-title">
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
-                               aria-expanded="false" aria-controls="collapseTwo">
-                                نظري نداري؟ ميخواي يه حساب ايجاد کني؟
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse {% if panel == 2 %}in{% endif %}" role="tabpanel" aria-labelledby="headingTwo">
-                        <div class="panel-body">
-                            {% if success %}
-                            {% endif %}
-
-                            {% if panel == 2 and message != Null %}
-                                <div class="alert alert-success size85">{{ message }}</div>
-                            {% endif %}
-                            <form class="form-signin" method="post" action="{% url 'register' %}">{% csrf_token %}
-                                <input type="email" id="inputEmail" class="form-control" placeholder="ايميل" required autofocus name="email">
-                                <br> با کليک کردن شما <a href="{% url 'policy' %}">قوانين </a> را قبول کرده ايد<br> <br>
-                                <button class="btn btn-lg btn-primary btn-block" type="submit">ثبت نام</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-danger">
-                    <div class="panel-heading" role="tab" id="headingTwo">
-                        <h4 class="panel-title">
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
-                               aria-expanded="false" aria-controls="collapseTwo">
-                                باز رمزت يادت رفت!!!
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseThree" class="panel-collapse collapse {% if panel == 3 %}in{% endif %}" role="tabpanel" aria-labelledby="headingTwo">
-                        <div class="panel-body">
-                            {% if success %}
-                            {% endif %}
-
-                            {% if panel == 3 and message != Null %}
-                                <div class="alert alert-success size85">{{ message }}</div>
-                            {% endif %}
-                            <form class="form-signin" method="post" action="{% url 'forgot' %}">{% csrf_token %}
-                                <input type="email" id="inputEmail" class="form-control" placeholder="ايميل" required autofocus name="email">
-                                <br>
-                                <button class="btn btn-lg btn-primary btn-block" type="submit">يادم رفته ديگه</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+	<div class="rtl irmitra">
+		<h1>سلام</h1>
+		<div class="panel-group" id="accordion">
+			<div class="panel panel-success">
+				<div class="panel-heading" role="tab" id="headingOne">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
+						   aria-controls="collapseOne">
+							نظرت راجع به ورود به سيستم چيه؟
+						</a>
+					</h4>
+				</div>
+				<div id="collapseOne" class="panel-collapse collapse {% if panel == 1 %}in{% endif %}" role="tabpanel" aria-labelledby="headingOne">
+					<div class="panel-body">
+						{% if success %}
+							{% if panel == 1 and message != Null %}
+								<div class="alert alert-success size85">{{ message }}</div>
+							{% endif %}
+						{% else %}
+							{% if panel == 1 and message != Null %}
+								<div class="alert alert-danger size85">{{ message }}</div>
+							{% endif %}
+						{% endif %}	
+						<form class="form-signin" action="{% url 'login' %}" method="post">{% csrf_token %}
+							<input name="email" type="text" id="inputEmail" class="form-control" placeholder="ايميل" required autofocus>
+							<input name="password" type="password" id="inputPassword" class="form-control" placeholder="گذرواژه" required>
+							<button class="btn btn-lg btn-primary btn-block" type="submit">وارد شو</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-info">
+				<div class="panel-heading" role="tab" id="headingTwo">
+					<h4 class="panel-title">
+						<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+						   aria-expanded="false" aria-controls="collapseTwo">
+							نظري نداري؟ ميخواي يه حساب ايجاد کني؟
+						</a>
+					</h4>
+				</div>
+				<div id="collapseTwo" class="panel-collapse collapse {% if panel == 2 %}in{% endif %}" role="tabpanel" aria-labelledby="headingTwo">
+					<div class="panel-body">
+						{% if success %}
+							{% if panel == 2 and message != Null %}
+								<div class="alert alert-success size85">{{ message }}</div>
+							{% endif %}
+						{% else %}
+							{% if panel == 2 and message != Null %}
+								<div class="alert alert-danger size85">{{ message }}</div>
+							{% endif %}
+						{% endif %}	
+						<form class="form-signin" method="post" action="{% url 'register' %}">{% csrf_token %}
+							<input type="email" id="inputEmail" class="form-control" placeholder="ايميل" required autofocus name="email">
+							<br> با کليک کردن شما <a href="{% url 'policy' %}">قوانين </a> را قبول کرده ايد<br> <br>
+							<button class="btn btn-lg btn-primary btn-block" type="submit">ثبت نام</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-danger">
+				<div class="panel-heading" role="tab" id="headingTwo">
+					<h4 class="panel-title">
+						<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+						   aria-expanded="false" aria-controls="collapseTwo">
+							باز رمزت يادت رفت!!!
+						</a>
+					</h4>
+				</div>
+				<div id="collapseThree" class="panel-collapse collapse {% if panel == 3 %}in{% endif %}" role="tabpanel" aria-labelledby="headingTwo">
+					<div class="panel-body">
+						{% if success %}
+							{% if panel == 3 and message != Null %}
+								<div class="alert alert-success size85">{{ message }}</div>
+							{% endif %}
+						{% else %}
+							{% if panel == 3 and message != Null %}
+								<div class="alert alert-danger size85">{{ message }}</div>
+							{% endif %}
+						{% endif %}	
+						<form class="form-signin" method="post" action="{% url 'forgot' %}">{% csrf_token %}
+							<input type="email" id="inputEmail" class="form-control" placeholder="ايميل" required autofocus name="email">
+							<br>
+							<button class="btn btn-lg btn-primary btn-block" type="submit">يادم رفته ديگه</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+</div>

@@ -49,7 +49,6 @@
 								{% block extraDrop %}{% endblock %}
 								<li><a href="{% url 'profile' %}" class="irmitra bold size18">حساب کاربری
 									 <span class="glyphicon glyphico</li>n-user navbar-right"></span></a>
-
 								<li><a href="{% url 'close' %}" class="irmitra bold size18">خروج
 								   <span class="glyphicon glyphicon-off navbar-right"></span></a>
 								</li>
@@ -65,24 +64,13 @@
 <div class="{% block containerClass %}container{% endblock %}">{% block content %}{% endblock %}</div>
 {% block footer %}
 <footer class="myfooter">
-	<div class="container" align="center">
-
-		<div class="text-muted btn-group">
-			<a class="text-info btn btn-default" href="{% url 'about' %}">درباره ما</a>
-		</div>
-        <div class="text-muted btn-group">
-			<a class="text-info btn btn-default" href="/">صفحه اصلی</a>
-		</div>
-	</div>
-
-    <div class="container" align="center">
-
+    <div class="container irmitra" align="center">
 		<div class="text-muted btn-group">
 			<a class="text-info btn btn-default" href="#"> &copy; 2015 IUST AMC</a>
+			<a class="text-info btn btn-default" href="{% url 'index' %}">صفحه اصلی</a>
+			<a class="text-info btn btn-default" href="{% url 'about' %}">درباره ما</a>
 		</div>
-
 	</div>
-
 </footer>
 {% endblock %}
 </body>

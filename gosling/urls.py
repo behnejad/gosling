@@ -8,7 +8,6 @@ dajaxice_autodiscover()
 admin.autodiscover()
 
 urlpatterns = (
-    url(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
     url(r'^', include('user.urls')),
     url(r'^policy/', policy, name='policy'),
     url(r'^about/', about, name='about'),

@@ -3,7 +3,7 @@ from exam import views
 
 
 urlpatterns = (
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.index, name='examIndex'),
     url(r'^exam/(?P<eID>\d{1,4})$', views.exam, name='exam'),
     url(r'^examList/$', views.exam_list, name='examList'),
     url(r'^group/(?P<eID>\d{1,4})$', views.group, name='group'),

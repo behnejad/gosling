@@ -7,7 +7,7 @@ from user.hashmanager import makeHash
 from user.tokenmanager import is_valid_token
 from user.tokenmanager import generate_link_for_reset_pass
 from user.tokenmanager import token_is_expired
-import datetime
+from datetime import datetime
 
 
 def profile(request):
@@ -31,11 +31,11 @@ def login(request):
             if a.ban:
                 return render(request, 'index.html', {'panel': 1, 'success': False, 'message': 'کاربر گرامی دستررسی شما قطع شده'})
 
-            if a.is_valid_pass('md5', request.POST['password']):
+            if a.is_valid_pass(request.POST['password']):
                 request.session['login'] = True
                 request.session['email'] = a.email
                 request.session['first_name'] = a.first_name
-                return HttpResponseRedirect('/home/')
+                return HttpResponseRedirect('/profile/')
 
     return render(request, 'index.html', {'panel': 1, 'success': False, 'message': 'ورود با شکست مواجه شد'})
 
@@ -86,7 +86,7 @@ def do_reg(request):
             request.POST.get('password') and request.POST.get('email'):
             User(first_name=request.POST['firstname'], last_name=request.POST['lastname'], email=request.POST['email'],
                  password=makeHash('md5', request.POST['password'].encode('utf-8'), request.POST['email'].encode('utf-8')),
-                 datecreate=datetime.now()).save()
+                 date_create=datetime.now()).save()
             return render(request, 'index.html', {"mes": 'خوب به سلامتی ثبت نام شدی'})
     return render(request, 'index.html', {'mes': "ههههه ههههه ههههه"})
 
@@ -99,8 +99,8 @@ def password_change(request):
                 a = a[0]
                 a.password = makeHash('md5', request.POST.get('password').encode('utf-8'), request.session['email'].encode('utf-8'))
                 a.save()
-                return HttpResponseRedirect('/home?mes=1')
-    return HttpResponseRedirect('/home?mes=0')
+                return HttpResponseRedirect('/profile?mes=1')
+    return HttpResponseRedirect('/profile?mes=0')
 
 
 def password_change_done(request):
