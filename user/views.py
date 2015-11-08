@@ -62,7 +62,7 @@ def forgot(request):
         if a.count() == 1:
             a = a[0]
             l = Reset.objects.filter(user_id=a.id)
-            if a.count() == 1:
+            if l.count() == 1:
                 l = l[0]
                 if not token_is_expired(l.time_request):
                     return render(request, 'index.html', {'panel': 3, 'success': False, 'message': 'دوست عزیز قبلا لینک تغییر رمز به شما ارسال شده است.'})
@@ -70,7 +70,9 @@ def forgot(request):
                     l.delete()
                     generate_link_for_reset_pass(a)
                     return render(request, 'index.html', {'panel': 3, 'success': True, 'message': 'دوست عزیز برو میلتو چک کن'})
-
+            else:
+                generate_link_for_reset_pass(a)
+                return render(request, 'index.html', {'panel': 3, 'success': True, 'message': 'دوست عزیز برو میلتو چک کن'})
         return render(request, 'index.html', {'panel': 3, 'success': False, 'message': 'دوست عزیز همچین چیزی وجود نداره'})
     return render(request, 'index.html', {'panel': 3, 'success': True, 'message': 'عملیات با شکست مواجه شد'})
 
