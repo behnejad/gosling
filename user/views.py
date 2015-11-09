@@ -35,6 +35,7 @@ def login(request):
                 request.session['login'] = True
                 request.session['email'] = a.email
                 request.session['first_name'] = a.first_name
+                request.session['last_name'] = a.last_name
                 return HttpResponseRedirect('/profile/')
 
     return render(request, 'index.html', {'panel': 1, 'success': False, 'message': 'ورود با شکست مواجه شد'})

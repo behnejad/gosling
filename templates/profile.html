@@ -5,7 +5,7 @@
 {% block content %}
     <div class="col-sm-5 col-sm-offset-1">
         <div class="rtl irmitra" align="center">
-            <h1>{{ request.session.first_name }}</h1>
+            <h1>سلام {{ request.session.first_name }} {{ request.session.last_name }}</h1>
             <h1>
                 {% if request.GET.mes == '1' %}
                     تغییر موفق
