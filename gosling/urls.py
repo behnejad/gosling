@@ -10,6 +10,7 @@ urlpatterns = (
     url(r'^', include('user.urls')),
     url(r'^policy/', TemplateView.as_view(template_name='policy.html'), name='policy'),
     url(r'^about/', TemplateView.as_view(template_name='about.html'), name='about'),
+    url(r'^problem/', TemplateView.as_view(template_name='problem.html'), name='problem'),
     url(r'^exam/', include('exam.urls')),
     url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
     url(r'^admin/', include(admin.site.urls)),

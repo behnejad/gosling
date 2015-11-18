@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% block extLeft %}{% endblock %}
+{% block extRight %}{% endblock %}
+{% block branding %}{% endblock %}
+{% block content %}
+    <div class="col-sm-8">
+        <div class="rtl irmitra" align="center">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">اینجا عنوان سواله</h2>
+                </div>
+                <div class="panel-body">
+                   اینجا قرار متن سوال باشه
+                </div>
+                <div class="panel-footer" style="height: 60px;">
+                    <div class="col-md-1">
+                        <button class="btn btn-primary">قبلی</button>
+                    </div>
+                    <div class="col-md-1 col-md-offset-10">
+                        <button class="btn btn-primary">بعدی</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="rtl irmitra">
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-success">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
+                               aria-controls="collapseOne">
+                                پاسخ های چند گزینه ای
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse {% if panel == 1 or True %}in{% endif %}"
+                         role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <ol>
+                            {% for i in "as" %}
+                            <li>
+                                <b>صورت سوال</b>
+                                <ul>
+                                {% for j in "ewb" %}
+                                <li>
+                                    <label>
+                                        <input type="radio" name="{{ i }}" id="{{ j }}-{{ i }}">گزینه {{ forloop.counter }}
+                                    </label>
+                                </li>
+                                {% endfor %}
+                                <li>
+                                    <a class="label label-danger pak" id="{{ i }}">حذف انتخاب</a>
+                                </li>
+                                </ul>
+                            <hr>
+                            </li>
+                            {% endfor %}
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <h4 class="panel-title">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                               aria-expanded="false" aria-controls="collapseTwo">
+                                پاسخ های کوتاه
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse {% if panel == 2 %}in{% endif %}"
+                         role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            {% for i in "sad" %}
+                                <div class="form-group">
+                                    <label for="soal{{ forloop.counter }}">بنیان گذار سلسله ی قاجار که بود؟</label>
+                                    <input type="text" class="form-control" id="soal{{ forloop.counter }}"
+                                           placeholder="چرت و پرت ننویس">
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-danger">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <h4 class="panel-title">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+                               aria-expanded="false" aria-controls="collapseTwo">
+                                پاسخ های تشریحی
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse {% if panel == 3 %}in{% endif %}"
+                         role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            {% for i in "as" %}
+                                <div class="form-group">
+                                    <label for="text{{ forloop.counter }}">چرا صفویه از هم پاشید؟</label>
+                                    <textarea class="form-control" id="text{{ forloop.counter }}" rows="4" maxlength="1000"
+                                           placeholder="Enter email"></textarea>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block extra %}
+<script charset="utf-8">
+$('a.pak').click(function(){
+    $('input[name=' + $(this).attr('id') + ']').each(function() {
+        $(this).prop('checked', false);
+    });
+});
+</script>
+{% endblock %}
