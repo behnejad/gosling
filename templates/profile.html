@@ -3,9 +3,35 @@
 {% block navLeft %}{% endblock %}
 {% block extRight %}{% endblock %}
 {% block content %}
-    <div class="col-sm-5 col-sm-offset-1">
+    <div class="col-sm-3 irmitra rtl">
+        <div class="panel panel-success" style="margin-top: 60px;">
+            <div class="panel-heading">
+                <h4 class="panel-title">مشخصات کاربری</h4>
+            </div>
+            <div class="panel-body" align="center">
+                {% if avatar %}
+                    <img src="{{ STATIC_URL }}avatars/{{ user.email }}.jpg" width="200">
+                {% else %}
+                    <img src="{{ STATIC_URL }}avatars/default.png">
+                {% endif %}
+            </div>
+            <div class="panel-footer">
+                <ul class="list-group" style="padding-right:0">
+                    <li class="list-group-item">نام و نام خانوادگی: {{ user.person }}</li>
+                    <li class="list-group-item">ایمیل: {{ user.email }}</li>
+                    <li class="list-group-item">
+                        <form class="form-row" action="{% url 'avatar' %}" method="post"
+                              enctype="multipart/form-data">{% csrf_token %}
+                                <input Type="file" name="avatar" class="form-signin">
+                            <input type="submit" value="تغییر آواتار" class="btn btn-success btn-block">
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
         <div class="rtl irmitra" align="center">
-            <h1>سلام {{ request.session.first_name }} {{ request.session.last_name }}</h1>
             <h1>
                 {% if request.GET.mes == '1' %}
                     تغییر موفق
@@ -17,7 +43,8 @@
     </div>
     <div class="col-sm-4 col-sm-offset-2">
         <div class="rtl irmitra">
-            <h1>سلام</h1>
+            <h1>سلام{{ user.person }}</h1>
+
             <div class="panel-group" id="accordion">
                 <div class="panel panel-success">
                     <div class="panel-heading" role="tab" id="headingOne">
@@ -28,12 +55,13 @@
                             </a>
                         </h4>
                     </div>
-                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headingOne">
                         <div class="panel-body">
                             <ul class="list-group" style="padding-right:0px">
-                              <li class="list-group-item"><a href="{% url 'group' '1' %}">گروه شماره 1</a></li>
-                              <li class="list-group-item"><a href="{% url 'group' '2' %}">گروه شماره 2</a></li>
-                              <li class="list-group-item"><a href="{% url 'group' '3' %}">گروه شماره 3</a></li>
+                                <li class="list-group-item"><a href="{% url 'group' '1' %}">گروه شماره 1</a></li>
+                                <li class="list-group-item"><a href="{% url 'group' '2' %}">گروه شماره 2</a></li>
+                                <li class="list-group-item"><a href="{% url 'group' '3' %}">گروه شماره 3</a></li>
                             </ul>
                             <h4><a href="{% url 'groupList' %}">دیدن همه...</a></h4>
                         </div>
@@ -51,9 +79,11 @@
                     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                         <div class="panel-body">
                             <ul class="list-group" style="padding-right:0px">
-                              <li class="list-group-item"><a href="{% url 'exam' '1' %}">امتحان میان ترم ریاضی</a></li>
-                              <li class="list-group-item"><a href="{% url 'exam' '2' %}">امتحان پایان ترم فیزیک</a></li>
-                              <li class="list-group-item"><a href="{% url 'exam' '3' %}">کوئیز دینی</a></li>
+                                <li class="list-group-item"><a href="{% url 'exam' '1' %}">امتحان میان ترم ریاضی</a>
+                                </li>
+                                <li class="list-group-item"><a href="{% url 'exam' '2' %}">امتحان پایان ترم فیزیک</a>
+                                </li>
+                                <li class="list-group-item"><a href="{% url 'exam' '3' %}">کوئیز دینی</a></li>
                             </ul>
                             <h4><a href="{% url 'examList' %}">دیدن همه...</a></h4>
                         </div>
@@ -68,11 +98,13 @@
                             </a>
                         </h4>
                     </div>
-                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+                         aria-labelledby="headingTwo">
                         <div class="panel-body">
-                            
+
                             <form class="form-signin" method="post" action="{% url 'passwordChange' %}">{% csrf_token %}
-                                <input type="password" id="inputPassword" class="form-control" placeholder="رمز جدید" required autofocus name="password">
+                                <input type="password" id="inputPassword" class="form-control" placeholder="رمز جدید"
+                                       required autofocus name="password">
                                 <br>
                                 <button class="btn btn-lg btn-primary btn-block" type="submit">تغییر رمز</button>
                             </form>

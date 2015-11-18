@@ -35,7 +35,7 @@ class User(models.Model):
 
     @property
     def key(self):
-        makeHash('md5', self.password.encode('utf-8'), self.email.encode('utf-8'))
+        return makeHash('md5', self.password.encode('utf-8'), self.email.encode('utf-8'))
 
 
 class Reset(models.Model):
