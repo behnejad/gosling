@@ -2,7 +2,7 @@
  * Created by hooman on 19-Nov-15.
  */
 
-var radioAnswers = 0, radio = false, innerRadioAnswer = 0, ids = [], radioStat = {};
+var radio = false, radioAnswers = 0, innerRadioAnswer = 0, ids = [], radioStat = {};
 for (var i = 65; i <= 90; ++i) {
 	ids.push(String.fromCharCode(i));
 	ids.push(String.fromCharCode(i + 32));
@@ -17,7 +17,7 @@ $('a.radio-answer').click(function () {
 	initradioAnswers();
 	var parent = ids[2 * radioAnswers], child = ids[2 * innerRadioAnswer + 1];
 	temp = `<li class="radio-answer" id="` + parent + `">
-				<input class="addproblem radio-title" id="` + parent + `" placeholder="متن صورت سوال">
+				<input class="addproblem radio-title" id="` + parent + `" placeholder="متن سوال">
 				<ul class="radio-answer-` + parent + `">
 					<li class="radio-inner-answer" id="` + child + `">
 					<input class="addproblem radio-answer" line="` + child + `" parent="` + parent + `" type="text" placeholder="متن گزینه">
@@ -55,6 +55,52 @@ $(document).on('change', 'input.addproblem', function () {
     else {
         radioStat[$(this).attr('parent')][$(this).attr('line')] = true;
     }
+});
+var short = false, shortAnswers = 0;
+function initShortAnswer(){
+    if (!short) {
+		$('<ol class="short-answers"></ol>').clone().hide().prependTo('div.short-answers').slideDown('fast');
+		short = true;
+	}
+}
+$('a.short-answer').click(function(){
+    initShortAnswer();
+    var parent = ids[2 * shortAnswers];
+    temp = `<li class="short-answer" id="` + parent + `">
+				<input class="addproblem short-title" id="` + parent + `" placeholder="متن سوال">
+				<a class="label label-danger pak-short-answer" id="` + parent + `">حذف سوال</a>
+				<hr>
+			</li>`;
+	$(temp).clone().hide().appendTo('ol.short-answers').slideDown('fast');
+    ++shortAnswers;
+});
+$(document).on('click', 'a.pak-short-answer', function () {
+	$('li.short-answer#' + $(this).attr('id')).slideUp('fast', function () {
+		$(this).remove();
+	});
+});
+var long = false, longAnswers = 0;
+function initLongAnswer(){
+    if (!long) {
+		$('<ol class="long-answers"></ol>').clone().hide().prependTo('div.long-answers').slideDown('fast');
+		long = true;
+	}
+}
+$('a.long-answer').click(function(){
+    initLongAnswer();
+    var parent = ids[2 * longAnswers];
+    temp = `<li class="long-answer" id="` + parent + `">
+				<input class="addproblem long-title" id="` + parent + `" placeholder="متن سوال">
+				<a class="label label-danger pak-long-answer" id="` + parent + `">حذف سوال</a>
+				<hr>
+			</li>`;
+	$(temp).clone().hide().appendTo('ol.long-answers').slideDown('fast');
+    ++longAnswers;
+});
+$(document).on('click', 'a.pak-long-answer', function () {
+	$('li.long-answer#' + $(this).attr('id')).slideUp('fast', function () {
+		$(this).remove();
+	});
 });
 $(document).ready(function () {
 	window.CKEDITOR_BASEPATH = '/statics/ckeditor/ckeditor/';
