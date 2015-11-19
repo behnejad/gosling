@@ -61,7 +61,7 @@ h4.panel-title a {
     font-size: 20px;
 }
 div.panel-group div.panel div.panel-body {
-    max-height: 500px;
+    max-height: 420px;
     overflow-y: scroll;
 }
 div.panel-body ul {
@@ -69,4 +69,15 @@ div.panel-body ul {
 }
 div.panel-body ul label{
     font-weight: normal;
+}
+a.label {
+    color: white;
+}
+a.label:hover {
+    text-decoration: underline;
+}
+input.addproblem {
+    border: none;
+    font-size: 18px;
+    background-color: transparent;
 }
