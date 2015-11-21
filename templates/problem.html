@@ -7,10 +7,10 @@
 		<div class="rtl irmitra" align="center">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h2 class="panel-title">اینجا عنوان سواله</h2>
+{#					<h2 class="panel-title">اینجا عنوان سواله</h2>#}
 				</div>
 				<div class="panel-body">
-				   اینجا قرار متن سوال باشه
+				   {{ data }}
 				</div>
 				<div class="panel-footer" style="height: 60px;">
 					<div class="col-md-1">
@@ -38,24 +38,27 @@
 					<div id="collapseOne" class="panel-collapse collapse {% if panel == 1 or True %}in{% endif %}"
 						 role="tabpanel" aria-labelledby="headingOne">
 						<div class="panel-body">
-							<ol>
+							{% for choice in choices %}
+
+							{% endfor %}
+{#							<ol>#}
 {#							{% for i in "as" %}#}
-							<li>
-								<b>صورت سوال</b>
-								<ul>
-								{% for j in "ewb" %}
-								<li>
-									<label>
-										<input type="radio" name="" id="{{ j }}-{{ i }}">گزینه {{ forloop.counter }}
-									</label>
-								</li>
-								{% endfor %}
-								</ul>
-								<a class="label label-danger pak" id="">حذف انتخاب</a>
-							<hr>
-							</li>
+{#							<li>#}
+{#								<b>صورت سوال</b>#}
+{#								<ul>#}
+{#								{% for j in "ewb" %}#}
+{#								<li>#}
+{#									<label>#}
+{#										<input type="radio" name="" id="{{ j }}-{{ i }}">گزینه {{ forloop.counter }}#}
+{#									</label>#}
+{#								</li>#}
+{#								{% endfor %}#}
+{#								</ul>#}
+{#								<a class="label label-danger pak" id="">حذف انتخاب</a>#}
+{#							<hr>#}
+{#							</li>#}
 {#							{% endfor %}#}
-							</ol>
+{#							</ol>#}
 						</div>
 					</div>
 				</div>

@@ -4,18 +4,21 @@
 {% block branding %}{% endblock %}
 {% block containerClass %}{% endblock %}
 {% block content %}
+	<script>var state = {{ state }};</script>
 	<div class="col-sm-8">
 		<div class="rtl irmitra" align="center">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h2 class="panel-title"><input type="text" class="addproblem" id="problemTitle" placeholder="متن سوال را تایپ کنید"></h2>
+					<h2 class="panel-title">
+						<input type="text" class="addproblem" id="problemTitle" placeholder="متن سوال را تایپ کنید">
+					</h2>
 				</div>
 				<div class="panel-body">
 					<textarea name="problem"></textarea>
 				</div>
 				<div class="panel-footer" style="height: 60px;">
 					<div class="col-md-1">
-						<button class="btn btn-danger" id="clean">از نو</button>
+{#						<button class="btn btn-danger" id="clean">از نو</button>#}
 					</div>
 					<div class="col-md-1 col-md-offset-10">
 						<button class="btn btn-primary" id="submit">ثبت</button>

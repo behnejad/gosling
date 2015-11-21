@@ -2,13 +2,6 @@ from django.db import models
 from user.models import group, User
 
 
-class period(models.Model):
-    name = models.CharField(max_length=40)
-
-    def __unicode__(self):
-        return self.name
-
-
 class field(models.Model):
     name = models.CharField(max_length=40)
 
@@ -16,18 +9,16 @@ class field(models.Model):
         return self.name
 
 
-
 class section(models.Model):
+    fname = models.ForeignKey(field)
     name = models.CharField(max_length=40)
 
     def __unicode__(self):
-        return self.name
+        return self.fname.name + ' - ' + self.name
 
 
 class problem(models.Model):
-    # course = models.ForeignKey(field)
-    # term = models.ForeignKey(period)
-    # sec = models.ForeignKey(section)
+    sec = models.ForeignKey(section)
     text = models.TextField()
     answers = models.TextField()
 

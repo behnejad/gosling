@@ -13,7 +13,7 @@ function initradioAnswers() {
 		radio = true;
 	}
 }
-$('a.radio-answer').click(function () {
+$(document).on('click', 'a.radio-answer', function () {
 	initradioAnswers();
 	var parent = ids[2 * radioAnswers], child = ids[2 * innerRadioAnswer + 1];
 	temp = `<li class="radio-answer" id="` + parent + `">
@@ -31,7 +31,8 @@ $('a.radio-answer').click(function () {
     radioStat[parent][child] = false;
 	++radioAnswers;
 	++innerRadioAnswer;
-}).trigger("click");
+});
+$('a.radio-answer').trigger("click");
 $(document).on('click', 'a.pak-radio-answer', function () {
 	$('li.radio-answer#' + $(this).attr('id')).slideUp('fast', function () {
 		$(this).remove();
@@ -102,8 +103,14 @@ $(document).on('click', 'a.pak-long-answer', function () {
 		$(this).remove();
 	});
 });
-$('a.clean').click(function(){
+$('#clean').click(function(){
+	CKEDITOR.instances['problem'].setData('');
+	$('div.radio-answers').slideUp('fast', function (){
+		$(this).html('');
 
+		$(this).slideDown('fast');
+	});
+$('a.radio-answer').trigger("click");
 });
 $(document).ready(function () {
 	window.CKEDITOR_BASEPATH = '/statics/ckeditor/ckeditor/';
