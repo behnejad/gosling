@@ -8,7 +8,7 @@
 		<div class="rtl irmitra" align="center">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h2 class="panel-title"><input type="text" class="addproblem" id="problemTitle" placeholder="عنوان سوال را تایپ کنید"></h2>
+					<h2 class="panel-title"><input type="text" class="addproblem" id="problemTitle" placeholder="متن سوال را تایپ کنید"></h2>
 				</div>
 				<div class="panel-body">
 					<textarea name="problem"></textarea>
@@ -34,50 +34,50 @@
 							   aria-controls="collapseOne">
 								پاسخ های چند گزینه ای
 							</a>
-							<a class="label label-warning navbar-left radio-answer">اضافه کردن</a>
+							<a class="label label-warning navbar-left radio-answer hide">اضافه کردن</a>
 						</h4>
 					</div>
-					<div id="collapseOne" class="panel-collapse collapse {% if panel == 1 %}in{% endif %}"
+					<div id="collapseOne" class="panel-collapse collapse {% if panel == 1 or True %}in{% endif %}"
 						 role="tabpanel" aria-labelledby="headingOne">
 						<div class="panel-body radio-answers">
 
 						</div>
 					</div>
 				</div>
-				<div class="panel panel-info">
-					<div class="panel-heading" role="tab" id="headingTwo">
-						<h4 class="panel-title">
-							<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
-							   aria-expanded="false" aria-controls="collapseTwo">
-								پاسخ های کوتاه
-							</a>
-							<a class="label label-warning navbar-left short-answer">اضافه کردن</a>
-						</h4>
-					</div>
-					<div id="collapseTwo" class="panel-collapse collapse {% if panel == 2 %}in{% endif %}"
-						 role="tabpanel" aria-labelledby="headingTwo">
-						<div class="panel-body short-answers">
-
-						</div>
-					</div>
-				</div>
-				<div class="panel panel-danger">
-					<div class="panel-heading" role="tab" id="headingTwo">
-						<h4 class="panel-title">
-							<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
-							   aria-expanded="false" aria-controls="collapseTwo">
-								پاسخ های تشریحی
-							</a>
-							<a class="label label-warning navbar-left long-answer">اضافه کردن</a>
-						</h4>
-					</div>
-					<div id="collapseThree" class="panel-collapse collapse {% if panel == 3 %}in{% endif %}"
-						 role="tabpanel" aria-labelledby="headingTwo">
-						<div class="panel-body long-answers">
-
-						</div>
-					</div>
-				</div>
+{#				<div class="panel panel-info">#}
+{#					<div class="panel-heading" role="tab" id="headingTwo">#}
+{#						<h4 class="panel-title">#}
+{#							<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"#}
+{#							   aria-expanded="false" aria-controls="collapseTwo">#}
+{#								پاسخ های کوتاه#}
+{#							</a>#}
+{#							<a class="label label-warning navbar-left short-answer">اضافه کردن</a>#}
+{#						</h4>#}
+{#					</div>#}
+{#					<div id="collapseTwo" class="panel-collapse collapse {% if panel == 2 %}in{% endif %}"#}
+{#						 role="tabpanel" aria-labelledby="headingTwo">#}
+{#						<div class="panel-body short-answers">#}
+{##}
+{#						</div>#}
+{#					</div>#}
+{#				</div>#}
+{#				<div class="panel panel-danger">#}
+{#					<div class="panel-heading" role="tab" id="headingTwo">#}
+{#						<h4 class="panel-title">#}
+{#							<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"#}
+{#							   aria-expanded="false" aria-controls="collapseTwo">#}
+{#								پاسخ های تشریحی#}
+{#							</a>#}
+{#							<a class="label label-warning navbar-left long-answer">اضافه کردن</a>#}
+{#						</h4>#}
+{#					</div>#}
+{#					<div id="collapseThree" class="panel-collapse collapse {% if panel == 3 %}in{% endif %}"#}
+{#						 role="tabpanel" aria-labelledby="headingTwo">#}
+{#						<div class="panel-body long-answers">#}
+{##}
+{#						</div>#}
+{#					</div>#}
+{#				</div>#}
 			</div>
 		</div>
 	</div>

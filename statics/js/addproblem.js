@@ -23,7 +23,7 @@ $('a.radio-answer').click(function () {
 					<input class="addproblem radio-answer" line="` + child + `" parent="` + parent + `" type="text" placeholder="متن گزینه">
 					</li>
 				</ul>
-				<a class="label label-danger pak-radio-answer" id="` + parent + `">حذف سوال</a>
+				<a class="label label-danger pak-radio-answer hide" id="` + parent + `">حذف سوال</a>
 				<hr>
 			</li>`;
 	$(temp).clone().hide().appendTo('ol.radio-answers').slideDown('fast');
@@ -31,7 +31,7 @@ $('a.radio-answer').click(function () {
     radioStat[parent][child] = false;
 	++radioAnswers;
 	++innerRadioAnswer;
-});
+}).trigger("click");
 $(document).on('click', 'a.pak-radio-answer', function () {
 	$('li.radio-answer#' + $(this).attr('id')).slideUp('fast', function () {
 		$(this).remove();
@@ -101,6 +101,9 @@ $(document).on('click', 'a.pak-long-answer', function () {
 	$('li.long-answer#' + $(this).attr('id')).slideUp('fast', function () {
 		$(this).remove();
 	});
+});
+$('a.clean').click(function(){
+
 });
 $(document).ready(function () {
 	window.CKEDITOR_BASEPATH = '/statics/ckeditor/ckeditor/';
