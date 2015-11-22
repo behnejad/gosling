@@ -4,6 +4,7 @@ html {
 }
 body {
     margin-bottom: 60px;
+    background-color: #eee;
 }
 .myfooter {
     position: absolute;
@@ -21,12 +22,6 @@ footer div.container {
 #footer3 {
     margin-top: 30px;
 }
-
-/*-----------------------------------------------------------*/
-body {
-  background-color: #eee;
-}
-
 .form-signin {
   max-width: 330px;
   padding: 15px;
@@ -64,4 +59,26 @@ h4.panel-title a {
 }
 .size85 {
     font-size: 20px;
+}
+div.panel-group div.panel div.panel-body {
+    max-height: 420px;
+    overflow-y: scroll;
+}
+div.panel-body ul {
+    padding-right: 10px;
+}
+div.panel-body ul label{
+    font-weight: normal;
+}
+a.label {
+    color: white;
+}
+a.label:hover {
+    text-decoration: underline;
+}
+input.addproblem {
+    border: none;
+    font-size: 18px;
+    background-color: transparent;
+    width: 100%;
 }

@@ -26,8 +26,8 @@ html, code {
     width: 350px;
 }
 html {
-    background-color: #2b3e50;
-    color: #222;
+    background-color: white;
+    /*color: #222;*/
     padding: 15px;
 }
 body {
@@ -43,12 +43,11 @@ body {
     padding-right: 205px;
 }
 p {
-    color: white;
     margin: 11px 0 22px;
     overflow: hidden;
 }
 ins {
-    color: #ccc;
+    /*color: #ccc;*/
     text-decoration: none;
 }
 a img {
