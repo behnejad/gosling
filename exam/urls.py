@@ -11,4 +11,6 @@ urlpatterns = (
     url(r'^problemList/$', views.problem_list, name='problemList'),
     url(r'^problem/$', views.problem, name='Problem'),
     url(r'^addproblem/$', views.add_problem, name='addProblem'),
+    url(r'^loginGroup/$', views.loginGroup, name='loginGroup'),
+    url(r'^createGroup/$', views.createGroup, name='createGroup'),
 )
