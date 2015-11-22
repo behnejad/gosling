@@ -1,22 +1,40 @@
 # -*- coding: utf-8 -*-
 
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from user.models import User, prereg, Reset
 from user.hashmanager import makeHash
 from user.tokenmanager import is_valid_token
 from user.tokenmanager import generate_link_for_reset_pass
 from user.tokenmanager import token_is_expired
 from datetime import datetime
-
+from os.path import exists
 
 def profile(request):
-    return render(request, 'profile.html')
+    if not request.session.get('login'):
+        return HttpResponseForbidden()
+
+    u = User.objects.get(id=request.session.get('userId'))
+    return render(request, 'profile.html', {'user': u, 'avatar': exists('statics/avatars/%s.jpg' % u.email)})
 
 
 def close(request):
     request.session.flush()
     return HttpResponseRedirect('/')
+
+
+def avatar(request):
+    if not request.session.get('login'):
+        return HttpResponseForbidden()
+
+    if request.FILES.get('avatar'):
+        mail = User.objects.get(id=request.session.get('userId'))
+        with open('statics/avatars/%s.jpg' % mail.email, 'w') as f:
+            f.write(request.FILES['avatar'].read())
+
+        return HttpResponseRedirect('/profile/')
+
+    return HttpResponseForbidden()
 
 
 def index(request):
@@ -33,8 +51,7 @@ def login(request):
 
             if a.is_valid_pass(request.POST['password']):
                 request.session['login'] = True
-                request.session['email'] = a.email
-                request.session['first_name'] = a.first_name
+                request.session['userId'] = a.id
                 return HttpResponseRedirect('/profile/')
 
     return render(request, 'index.html', {'panel': 1, 'success': False, 'message': 'ورود با شکست مواجه شد'})
@@ -50,6 +67,7 @@ def register(request):
         if User.objects.filter(email=request.POST['email']).count() == 0:
             if prereg.objects.filter(mail=request.POST['email']).count() == 0:
                 prereg(mail=request.POST['email'], smash=makeHash('md5', request.POST['email'])).save()
+                print "/doreg/?id=" + makeHash('md5', request.POST['email']) + "&mail=" + request.POST['email']
                 return render(request, 'index.html', {'panel': 2, 'success': True, 'message': 'دوست عزیز برو میلتو چک کن'})
             return render(request, 'index.html', {'panel': 2, 'success': False, 'message': 'دوست عزیز برو میلتو چک کن'})
         return render(request, 'index.html', {'panel': 2, 'success': False, 'message': 'این ایمیل وجود داره انقد نزن'})
@@ -73,7 +91,6 @@ def forgot(request):
             else:
                 generate_link_for_reset_pass(a)
                 return render(request, 'index.html', {'panel': 3, 'success': True, 'message': 'دوست عزیز برو میلتو چک کن'})
-
         return render(request, 'index.html', {'panel': 3, 'success': False, 'message': 'دوست عزیز همچین چیزی وجود نداره'})
     return render(request, 'index.html', {'panel': 3, 'success': True, 'message': 'عملیات با شکست مواجه شد'})
 
