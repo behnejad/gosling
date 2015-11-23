@@ -20,6 +20,7 @@ class section(models.Model):
 class problem(models.Model):
     sec = models.ForeignKey(section)
     text = models.TextField()
+    question = models.TextField()
     answers = models.TextField()
 
 

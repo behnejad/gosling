@@ -51,10 +51,25 @@ class Reset(models.Model):
 
 
 class group(models.Model):
+    mode = ((False, 'No'), (True, 'Yes'))
     name = models.CharField(max_length=50)
     admin = models.ForeignKey(User)
-
-
+    description = models.CharField(max_length=1000)
+    date_created = models.DateTimeField()
+    # A group may be set as inactive by its admin.
+    is_activate = models.BooleanField(default=True, choices=mode)
+    password = models.CharField(max_length=60, help_text='This is not real')
+    
+    
+class group_user_relation(models.Model):
+    relation_types = (('T', 'Teacher'), ('S', 'Student'))
+    
+    user = models.ForeignKey(User)
+    group = models.ForeignKey(group)
+    type = models.CharField(max_length=1, choices=relation_types, default='T')
+    
+    
+    
 class prereg(models.Model):
     mail = models.CharField(max_length=30)
     smash = models.CharField(max_length=50)
