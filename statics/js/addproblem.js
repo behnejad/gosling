@@ -122,7 +122,18 @@ $('button#submit').click(function () {
         url: "",
         data: {final: true, index: state, text: CKEDITOR.instances['problem'].getData(),
                 question: $('input.radio-title').val(), answers: ans, csrftoken: $.cookie("csrftoken"),
-                csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()}
+                csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()},
+        success: function (data, textStatus, jqXHR) {
+            console.log('asd');
+            console.log(data);
+                if (data == "ok") {
+                    alert("سوال ثبت شد");
+                    window.location.assign('/profile/');
+                }
+                else
+                    alert("خطا در ایجاد سوال");
+                change_contest(1);
+            }
     });
 });
 $(document).ready(function () {
