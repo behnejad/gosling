@@ -23,10 +23,10 @@ class problem(models.Model):
     question = models.TextField()
     answers = models.TextField()
 
+    def anss(self):
+        return self.answers.split('|')
 
-    # def __unicode__(self):
-    #     return ' - '.join((self.coursode__(self):
-    #     return ' - '.join((self.course, self.term, self.sec))
-
+    def __unicode__(self):
+        return self.sec.__unicode__()
 
 

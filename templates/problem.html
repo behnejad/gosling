@@ -7,10 +7,10 @@
 		<div class="rtl irmitra" align="center">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-{#					<h2 class="panel-title">اینجا عنوان سواله</h2>#}
+					<h2 class="panel-title">{{ problem.sec }}</h2>
 				</div>
-				<div class="panel-body">
-				   {{ data }}
+				<div class="panel-body" style="font-size: 20px;" align="right">
+				   {{ problem.text|safe }}
 				</div>
 				<div class="panel-footer" style="height: 60px;">
 					<div class="col-md-1">
@@ -37,10 +37,21 @@
 					</div>
 					<div id="collapseOne" class="panel-collapse collapse {% if panel == 1 or True %}in{% endif %}"
 						 role="tabpanel" aria-labelledby="headingOne">
-						<div class="panel-body">
-							{% for choice in choices %}
-
+						<div class="panel-body" style="font-size: 20px;">
+							<b>{{ problem.question }}</b>
+							<ul>
+							{% for choice in problem.anss %}
+								{% if choice %}
+								<li>
+									<label>
+										<input type="radio" name="koft" id="{{ forloop.counter }}">{{ choice }}
+									</label>
+								</li>
+								{% endif %}
 							{% endfor %}
+							</ul>
+							<a class="label label-danger pak" id="koft">حذف انتخاب</a>
+							<a class="label label-success pak" id="">ثبت</a>
 {#							<ol>#}
 {#							{% for i in "as" %}#}
 {#							<li>#}
@@ -54,7 +65,6 @@
 {#								</li>#}
 {#								{% endfor %}#}
 {#								</ul>#}
-{#								<a class="label label-danger pak" id="">حذف انتخاب</a>#}
 {#							<hr>#}
 {#							</li>#}
 {#							{% endfor %}#}

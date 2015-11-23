@@ -23,7 +23,8 @@ def group_list(request):
 
 
 def problem(request):
-    return render(request, 'problem.html')
+    p = prob.objects.get_queryset()[:1][0]
+    return render(request, 'problem.html', {'problem': p})
 
 
 def createGroup(request):
