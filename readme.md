@@ -1,4 +1,4 @@
 Gosling
 ===============
 
-Gosling is a new way to taking tests and take teachers away from testing system.
+Gosling is a new way for taking tests and putting teachers away from educational system.
