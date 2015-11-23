@@ -26,6 +26,14 @@ def problem(request):
     return render(request, 'problem.html')
 
 
+def createGroup(request):
+    return render(request, 'group_create_login.html', {'create': True})
+
+
+def loginGroup(request):
+    return render(request, 'group_create_login.html', {'create': False})
+
+
 def add_problem(request):
     if request.POST.get('type'):
         return render(request, 'section.html', {'next': 'stat', 'data': section.objects.filter(fname=request.POST.get('type'))})
