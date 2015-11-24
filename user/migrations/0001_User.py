@@ -11,13 +11,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='group',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=50)),
-            ],
-        ),
-        migrations.CreateModel(
             name='mail',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -47,10 +40,5 @@ class Migration(migrations.Migration):
                 ('request', models.BooleanField(default=False, choices=[(False, b'No'), (True, b'Yes')])),
                 ('ban', models.BooleanField(default=False, choices=[(False, b'No'), (True, b'Yes')])),
             ],
-        ),
-        migrations.AddField(
-            model_name='group',
-            name='admin',
-            field=models.ForeignKey(to='user.User'),
         ),
     ]

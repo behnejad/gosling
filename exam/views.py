@@ -1,5 +1,9 @@
+# -*- coding: utf-8 -*-
+
 from django.shortcuts import render, render_to_response
 from exam.models import field, section, problem as prob
+from user.models import User, group as Group
+from datetime import datetime
 
 
 def index(request):
@@ -19,7 +23,7 @@ def group(request, eID):
 
 
 def group_list(request):
-    return render(request, 'index.html')
+    return render(request, 'groupList.html', {'list': Group.objects.get_queryset()})
 
 
 def problem(request):
@@ -28,16 +32,28 @@ def problem(request):
 
 
 def createGroup(request):
-    return render(request, 'group_create_login.html', {'create': True})
+    if request.method == 'GET':
+        return render(request, 'group_create_login.html', {'create': True,
+                                                           'admin': User.objects.get(id=request.session['userId'])})
+
+    else:
+        a = User.objects.get(id=request.session['userId'])
+        Group(name=request.POST['name'], admin=a, description=request.POST['description'],
+              date_created=datetime.now(), password=request.POST['password']).save()
+        return render(request, 'group_create_login.html', {'create': True, 'admin': a, 'mess': 'گروه با موفقیت ساخته شد'})
 
 
-def loginGroup(request):
-    return render(request, 'group_create_login.html', {'create': False})
+def loginGroup(request, gId):
+    if gId == 0:
+        #TODO Login
+        pass
 
+    return render(request, 'group_create_login.html', {'create': False, 'group': Group.objects.get(id=gId)})
 
 def add_problem(request):
     if request.POST.get('type'):
-        return render(request, 'section.html', {'next': 'stat', 'data': section.objects.filter(fname=request.POST.get('type'))})
+        return render(request, 'section.html', {'next': 'stat', 'data': section.objects.filter(fname=request.POST.get('type')),
+                                                'd2': field.objects.get(id=request.POST.get('type'))})
 
     elif request.POST.get('stat'):
         return render(request, 'addproblem.html', {'state': request.POST.get('stat')})

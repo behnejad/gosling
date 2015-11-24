@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block navLeft %}{% endblock %}
+{% block navRight %}{% endblock %}
+{% block content %}
+<section class="bg-section irmitra">
+	{% for i in list %}
+		<div class="panel panel-primary section" align="right">
+			<div class="panel-heading">
+				<h5>{{ i.name }}</h5>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-4 col-sm-push-8">مدیر گروه</div>
+					<div class="col-sm-8 col-sm-pull-4">{{ i.admin }}</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4 col-sm-push-8">توضیحات</div>
+					<div class="col-sm-8 col-sm-pull-4">{{ i.description }}</div>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<form method="post" action="{% url 'loginGroup' i.id %}">{% csrf_token %}
+					<input type="text" hidden>
+					<button type="submit" class="btn btn-primary btn-block">عضویت</button>
+				</form>
+			</div>
+		</div>
+	{% endfor%}
+</section>
+{% endblock %}

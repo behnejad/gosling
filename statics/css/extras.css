@@ -82,3 +82,17 @@ input.addproblem {
     background-color: transparent;
     width: 100%;
 }
+.bg-section {
+    margin-top: -20px;
+    text-align: center;
+}
+.section {
+    /*border-radius: 5px;*/
+    display: inline-block;
+    /*width: 120px;*/
+    /*height: 140px;*/
+    margin: 5px;
+    text-align: center;
+    vertical-align: top;
+    /*padding: 15px;*/
+}

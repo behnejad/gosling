@@ -50,9 +50,18 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(models.group)
 class GroupAdmin(admin.ModelAdmin):
+    date_hierarchy = 'date_created'
     list_per_page = 15
     list_max_show_all = 30
     search_fields = ('name', 'admin__last_name', 'admin__first_name')
+    list_display = ('name', 'admin', 'description', 'is_activate', 'password')
+
+
+@admin.register(models.group_user_relation)
+class GroupMemberAdmin(admin.ModelAdmin):
+    list_per_page = 15
+    list_max_show_all = 30
+    list_display = ('user', 'group', 'type')
 
 
 @admin.register(models.prereg)

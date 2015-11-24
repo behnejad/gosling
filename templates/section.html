@@ -8,6 +8,9 @@
 			<div class="panel-body">
 				<form class="form-horizontal" method="post">{% csrf_token %}
 					<div class="form-group-lg">
+						{% if d2 %}
+							<input type="text" class="disabled form-control" value="{{ d2 }}" disabled><br>
+						{% endif %}
 						<select name="{{ next }}" class="form-control" style="font-size: 20px;">
 							{% for i in data %}
 								<option value="{{ i.id }}">{{ i.name }}</option>

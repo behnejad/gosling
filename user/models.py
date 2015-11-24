@@ -59,16 +59,17 @@ class group(models.Model):
     # A group may be set as inactive by its admin.
     is_activate = models.BooleanField(default=True, choices=mode)
     password = models.CharField(max_length=60, help_text='This is not real')
-    
-    
+
+    def __unicode__(self):
+        return self.name
+
+
 class group_user_relation(models.Model):
     relation_types = (('T', 'Teacher'), ('S', 'Student'))
-    
     user = models.ForeignKey(User)
     group = models.ForeignKey(group)
     type = models.CharField(max_length=1, choices=relation_types, default='T')
-    
-    
+
     
 class prereg(models.Model):
     mail = models.CharField(max_length=30)

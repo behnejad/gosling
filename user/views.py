@@ -2,7 +2,7 @@
 
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponseForbidden
-from user.models import User, prereg, Reset
+from user.models import User, prereg, Reset, group, group_user_relation
 from user.hashmanager import makeHash
 from user.tokenmanager import is_valid_token
 from user.tokenmanager import generate_link_for_reset_pass
@@ -15,7 +15,9 @@ def profile(request):
         return HttpResponseForbidden()
 
     u = User.objects.get(id=request.session.get('userId'))
-    return render(request, 'profile.html', {'user': u, 'avatar': exists('statics/avatars/%s.jpg' % u.email)})
+    grp = group_user_relation.objects.filter(user=request.session['userId'])[:3]
+    return render(request, 'profile.html', {'user': u, 'avatar': exists('statics/avatars/%s.jpg' % u.email),
+                                            'grp': grp})
 
 
 def close(request):
