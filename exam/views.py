@@ -26,6 +26,10 @@ def problem(request):
     return render(request, 'problem.html')
 
 
+def group(request):
+    return render(request, 'group.html')
+
+
 def createGroup(request):
     return render(request, 'group_create_login.html', {'create': True})
 

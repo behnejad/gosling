@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+{% block extLeft %}{% endblock %}
+{% block extRight %}{% endblock %}
+{% block branding %}{% endblock %}
+{% block content %}
+    <div class="col-sm-8 col-sm-offset-2">
+        <div class="rtl irmitra" style="font-size:18px;">
+            <div class="panel with-nav-tabs panel-primary">
+                <div class="panel-heading">
+                    <ul class="nav nav-tabs nav-justified">
+                        <li class="active"><a href="#t1" data-toggle="tab">مشخصات گروه</a></li>
+                        <li><a href="#t2" data-toggle="tab">اعضای گروه</a></li>
+                        <li><a href="#t3" data-toggle="tab">امتحان های گروه</a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="t1">
+                            <div class="col-sm-5">
+                                <div class="col-sm-12">
+                                    <div class="panel panel-primary" align="right">
+                                        <div class="panel-body">
+                                            توضیحات
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="panel panel-primary" align="right">
+                                        <div class="panel-body">
+                                            توضیحات
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="panel panel-primary" align="right">
+                                        <div class="panel-body">
+                                            توضیحات
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="panel panel-primary" align="right">
+                                        <div class="panel-body">
+                                            توضیحات
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-7">
+                                <div class="panel panel-primary" align="right">
+                                    <div class="panel-body">
+                                        {% if create %}
+                                            <form class="form-signin" action="{% url 'login' %}" method="post">
+                                            {% csrf_token %}
+                                        {% else %}
+                                            <form class="form-signin" action="{% url 'login' %}" method="post">
+                                            {% csrf_token %}
+                                        {% endif %}
+                                        <div class="row">
+                                            <div class="col-sm-4 col-sm-push-8">
+                                                <div style="vertical-align: middle;display: table-cell; height: 60px;align: center">
+                                                    مدیر گروه:
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8 col-sm-pull-4">
+                                                <div style="vertical-align: middle;display: table-cell; height: 60px; align: center">
+                                                    <span class="label label-info">هومن</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4 col-sm-push-8">
+                                                <div style="vertical-align: middle;display: table-cell; height: 60px;align: center">
+                                                    تاریخ تاسیس:
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8 col-sm-pull-4">
+                                                <div style="vertical-align: middle;display: table-cell; height: 60px; align: center">
+                                                    <span class="label label-info">1394/06/11</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4 col-sm-push-8">
+                                                <div style="vertical-align: middle;display: table-cell; height: 60px; align: center">
+                                                    نام گروه:
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8 col-sm-pull-4">
+                                                <div style="vertical-align: middle;display: table-cell; height: 60px;align: center">
+                                                    <input name="name" type="text" id="inputName" class="form-control"
+                                                           placeholder="تایپ کنید." value="گروه مرگ" required autofocus>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                                <button class="btn btn-lg btn-primary btn-block" type="submit">
+                                                    ذخیره تغییرات
+                                                </button>
+                                            </div>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="t2">
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <div class="panel panel-primary" align="right">
+                                    <div class="panel-body">
+                                        <div class="col-sm-2">
+                                            <button type="button" class="btn btn-primary">حذف فرد</button>
+                                        </div>
+                                        <div class="col-sm-7">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            مهدی بگوند
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <div class="panel panel-primary" align="right">
+                                    <div class="panel-body">
+                                        <div class="col-sm-2">
+                                            <button type="button" class="btn btn-primary">حذف فرد</button>
+                                        </div>
+                                        <div class="col-sm-7">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            مهدی بگوند
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <div class="panel panel-primary" align="right">
+                                    <div class="panel-body">
+                                        <div class="col-sm-2">
+                                            <button type="button" class="btn btn-primary">حذف فرد</button>
+                                        </div>
+                                        <div class="col-sm-7">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            مهدی بگوند
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="t3">
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <div class="panel panel-primary" align="right">
+                                    <div class="panel-body">
+                                        <div class="col-sm-2">
+                                            <button type="button" class="btn btn-primary">حذف فرد</button>
+                                        </div>
+                                        <div class="col-sm-7">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            امتحان کنکور
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="col-sm-8 col-sm-offset-2">
+                                <div class="panel panel-primary" align="right">
+                                    <div class="panel-body">
+                                        <div class="col-sm-2">
+                                            <button type="button" class="btn btn-primary">حذف فرد</button>
+                                        </div>
+                                        <div class="col-sm-7">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            امتحان کنکور
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="col-sm-8 col-sm-offset-2">
+                                <div class="panel panel-primary" align="right">
+                                    <div class="panel-body">
+                                        <div class="col-sm-2">
+                                            <button type="button" class="btn btn-primary">حذف فرد</button>
+                                        </div>
+                                        <div class="col-sm-7">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            امتحان کنکور
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block extra %}
+{% endblock %}
