@@ -31,6 +31,10 @@ def problem(request):
     return render(request, 'problem.html', {'problem': p})
 
 
+def group(request):
+    return render(request, 'group.html')
+
+
 def createGroup(request):
     if request.method == 'GET':
         return render(request, 'group_create_login.html', {'create': True,
