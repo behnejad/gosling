@@ -2,8 +2,9 @@
 
 from django.shortcuts import render, render_to_response
 from exam.models import field, section, problem as prob
-from user.models import User, group as Group
+from user.models import User, group as Group, group_user_relation
 from datetime import datetime
+from django.http import HttpResponseRedirect
 
 
 def index(request):
@@ -18,8 +19,22 @@ def exam_list(request):
     return render(request, 'index.html')
 
 
+def admin(request, gId):
+    g = Group.objects.get(id=gId)
+    if request.session['userId'] == g.admin_id:
+        print group_user_relation.objects.filter(group=gId, user=request.POST['user']).delete()
+
+    return HttpResponseRedirect('/exam/group/%s' % gId)
+
+
 def group(request, eID):
-    return render(request, 'index.html')
+    g = Group.objects.get(id=eID)
+    if request.session['userId'] == g.admin_id:
+        use = False
+    else:
+        use = True
+    mems = group_user_relation.objects.filter(group=eID)
+    return render(request, 'group.html', {'group': g, 'mems': mems, 'user': use})
 
 
 def group_list(request):
@@ -29,10 +44,6 @@ def group_list(request):
 def problem(request):
     p = prob.objects.get_queryset()[:1][0]
     return render(request, 'problem.html', {'problem': p})
-
-
-def group(request):
-    return render(request, 'group.html')
 
 
 def createGroup(request):
@@ -48,9 +59,19 @@ def createGroup(request):
 
 
 def loginGroup(request, gId):
-    if gId == 0:
-        #TODO Login
-        pass
+    if request.method == 'POST':
+        if group_user_relation.objects.filter(user=request.session['userId'], group=gId)[:1].count():
+            return render(request, 'group_create_login.html', {'create': False, 'group': Group.objects.get(id=gId),
+                                                               'mess': 'الان تو گروهی مگه مریضی؟'})
+
+        g = Group.objects.get(id=gId)
+        if g.password == request.POST['password']:
+            group_user_relation(user=User.objects.get(id=request.session['userId']), group=g).save()
+            return render(request, 'group_create_login.html', {'create': False, 'group': Group.objects.get(id=gId),
+                                                                   'mess': 'در گروه ثبت نام شدی'})
+        else:
+            return render(request, 'group_create_login.html', {'create': False, 'group': Group.objects.get(id=gId),
+                                                                   'mess': 'رمز اشتباهههه'})
 
     return render(request, 'group_create_login.html', {'create': False, 'group': Group.objects.get(id=gId)})
 

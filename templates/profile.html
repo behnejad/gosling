@@ -64,7 +64,7 @@
                         <div class="panel-body">
                             <ul class="list-group" style="padding-right:0px">
 								{% for i in grp %}
-                                	<li class="list-group-item"><a href="{% url 'group' i.id %}">{{ i.group }}</a></li>
+                                	<li class="list-group-item"><a href="{% url 'group' i.group_id %}">{{ i.group }}</a></li>
                                 {% endfor %}
                             </ul>
                             <h4><a href="{% url 'groupList' %}">دیدن همه...</a></h4>

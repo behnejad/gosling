@@ -11,14 +11,18 @@
 				<form class="" action="{% url 'createGroup' %}" method="post">{% csrf_token %}
 			{% else %}
 				<div class="panel-heading">ورود دانشجو به گروه</div>
-				<form class="" action="{% url 'loginGroup' 0 %}" method="post">{% csrf_token %}
+				<form class="" action="{% url 'loginGroup' group.id %}" method="post">{% csrf_token %}
 			{% endif %}
 
 			<div class="panel-body">
 				<div class="col-sm-5" style="height:100%">
 					<div class="panel panel-primary" align="right">
 						<div class="panel-body">
-							<textarea name="description" maxlength="1000" class="form-control" placeholder="توضیحات">{{ group.description }}</textarea>
+							{% if create %}
+								<textarea name="description" maxlength="1000" class="form-control" placeholder="توضیحات"></textarea>
+							{% else %}
+								{{ group.description }}
+							{% endif %}
 						</div>
 					</div>
 				</div>

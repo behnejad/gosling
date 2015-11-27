@@ -19,30 +19,7 @@
                             <div class="col-sm-5">
                                 <div class="col-sm-12">
                                     <div class="panel panel-primary" align="right">
-                                        <div class="panel-body">
-                                            توضیحات
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="panel panel-primary" align="right">
-                                        <div class="panel-body">
-                                            توضیحات
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="panel panel-primary" align="right">
-                                        <div class="panel-body">
-                                            توضیحات
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="panel panel-primary" align="right">
-                                        <div class="panel-body">
-                                            توضیحات
-                                        </div>
+                                        <div class="panel-body">{{ group.description }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -50,55 +27,51 @@
                                 <div class="panel panel-primary" align="right">
                                     <div class="panel-body">
                                         {% if create %}
-                                            <form class="form-signin" action="{% url 'login' %}" method="post">
-                                            {% csrf_token %}
+                                            <form class="form-signin" action="{% url 'login' %}" method="post">{% csrf_token %}
                                         {% else %}
-                                            <form class="form-signin" action="{% url 'login' %}" method="post">
-                                            {% csrf_token %}
+                                            <form class="form-signin" action="{% url 'login' %}" method="post">{% csrf_token %}
                                         {% endif %}
                                         <div class="row">
                                             <div class="col-sm-4 col-sm-push-8">
-                                                <div style="vertical-align: middle;display: table-cell; height: 60px;align: center">
-                                                    مدیر گروه:
-                                                </div>
+                                                <div style="vertical-align: middle;display: table-cell; height: 60px;align: center">مدیر گروه:</div>
                                             </div>
                                             <div class="col-sm-8 col-sm-pull-4">
                                                 <div style="vertical-align: middle;display: table-cell; height: 60px; align: center">
-                                                    <span class="label label-info">هومن</span>
+                                                    <span class="label label-success">{{ group.admin }}</span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-4 col-sm-push-8">
-                                                <div style="vertical-align: middle;display: table-cell; height: 60px;align: center">
-                                                    تاریخ تاسیس:
-                                                </div>
+                                                <div style="vertical-align: middle;display: table-cell; height: 60px;align: center">تاریخ تاسیس:</div>
                                             </div>
                                             <div class="col-sm-8 col-sm-pull-4">
                                                 <div style="vertical-align: middle;display: table-cell; height: 60px; align: center">
-                                                    <span class="label label-info">1394/06/11</span>
+                                                    <span class="label label-danger">{{ group.date_created }}</span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-4 col-sm-push-8">
-                                                <div style="vertical-align: middle;display: table-cell; height: 60px; align: center">
-                                                    نام گروه:
-                                                </div>
+                                                <div style="vertical-align: middle;display: table-cell; height: 60px; align: center">نام گروه:</div>
                                             </div>
                                             <div class="col-sm-8 col-sm-pull-4">
                                                 <div style="vertical-align: middle;display: table-cell; height: 60px;align: center">
+													{% if user %}
+														<span class="label label-primary">{{ group.name }}</span>
+													{% else %}
                                                     <input name="name" type="text" id="inputName" class="form-control"
                                                            placeholder="تایپ کنید." value="گروه مرگ" required autofocus>
-                                                </div>
+                                                	{% endif %}
+												</div>
                                             </div>
                                         </div>
                                         <div class="row">
+											{% if not user %}
                                             <div class="col-sm-6 col-sm-offset-3">
-                                                <button class="btn btn-lg btn-primary btn-block" type="submit">
-                                                    ذخیره تغییرات
-                                                </button>
+                                                <button class="btn btn-lg btn-primary btn-block" type="submit">ذخیره تغییرات</button>
                                             </div>
+											{% endif %}
                                         </div>
                                         </form>
                                     </div>
@@ -107,46 +80,22 @@
                         </div>
                         <div class="tab-pane fade" id="t2">
                             <div class="col-sm-8 col-sm-offset-2">
-                                <div class="panel panel-primary" align="right">
-                                    <div class="panel-body">
-                                        <div class="col-sm-2">
-                                            <button type="button" class="btn btn-primary">حذف فرد</button>
-                                        </div>
-                                        <div class="col-sm-7">
-                                        </div>
-                                        <div class="col-sm-3">
-                                            مهدی بگوند
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-8 col-sm-offset-2">
-                                <div class="panel panel-primary" align="right">
-                                    <div class="panel-body">
-                                        <div class="col-sm-2">
-                                            <button type="button" class="btn btn-primary">حذف فرد</button>
-                                        </div>
-                                        <div class="col-sm-7">
-                                        </div>
-                                        <div class="col-sm-3">
-                                            مهدی بگوند
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-8 col-sm-offset-2">
-                                <div class="panel panel-primary" align="right">
-                                    <div class="panel-body">
-                                        <div class="col-sm-2">
-                                            <button type="button" class="btn btn-primary">حذف فرد</button>
-                                        </div>
-                                        <div class="col-sm-7">
-                                        </div>
-                                        <div class="col-sm-3">
-                                            مهدی بگوند
-                                        </div>
-                                    </div>
-                                </div>
+								{% for i in mems %}
+									<div class="panel panel-primary" align="right">
+										<div class="panel-body">
+											{% if not user %}
+												<form action="{% url 'groupAdmin' group.id %}" method="post">{% csrf_token %}
+													<input type="text" value="{{ i.user_id }}" class="hide" name="user">
+													<div class="col-sm-2">
+														<button type="submit" class="btn btn-primary">حذف فرد</button>
+													</div>
+												</form>
+											{% endif %}
+											<div class="col-sm-7"></div>
+											<div class="col-sm-3">{{ i.user }}</div>
+										</div>
+									</div>
+								{% endfor %}
                             </div>
                         </div>
                         <div class="tab-pane fade" id="t3">
@@ -156,39 +105,8 @@
                                         <div class="col-sm-2">
                                             <button type="button" class="btn btn-primary">حذف فرد</button>
                                         </div>
-                                        <div class="col-sm-7">
-                                        </div>
-                                        <div class="col-sm-3">
-                                            امتحان کنکور
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                             <div class="col-sm-8 col-sm-offset-2">
-                                <div class="panel panel-primary" align="right">
-                                    <div class="panel-body">
-                                        <div class="col-sm-2">
-                                            <button type="button" class="btn btn-primary">حذف فرد</button>
-                                        </div>
-                                        <div class="col-sm-7">
-                                        </div>
-                                        <div class="col-sm-3">
-                                            امتحان کنکور
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                             <div class="col-sm-8 col-sm-offset-2">
-                                <div class="panel panel-primary" align="right">
-                                    <div class="panel-body">
-                                        <div class="col-sm-2">
-                                            <button type="button" class="btn btn-primary">حذف فرد</button>
-                                        </div>
-                                        <div class="col-sm-7">
-                                        </div>
-                                        <div class="col-sm-3">
-                                            امتحان کنکور
-                                        </div>
+                                        <div class="col-sm-7"></div>
+                                        <div class="col-sm-3">امتحان کنکور</div>
                                     </div>
                                 </div>
                             </div>
@@ -198,7 +116,4 @@
             </div>
         </div>
     </div>
-
-{% endblock %}
-{% block extra %}
 {% endblock %}
