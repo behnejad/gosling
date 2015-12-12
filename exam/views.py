@@ -38,7 +38,7 @@ def group(request, eID):
 
 
 def group_list(request):
-    return render(request, 'groupList.html', {'list': Group.objects.get_queryset()})
+    return render(request, 'groupList.html', {'list': group.objects.filter(user=request.session['userId'])})
 
 
 def problem(request):
