@@ -31,7 +31,7 @@ def avatar(request):
 
     if request.FILES.get('avatar'):
         mail = User.objects.get(id=request.session.get('userId'))
-        with open('statics/avatars/%s.jpg' % mail.email, 'w') as f:
+        with open('statics/avatars/%s.jpg' % mail.email, 'wb') as f:
             f.write(request.FILES['avatar'].read())
 
         return HttpResponseRedirect('/profile/')

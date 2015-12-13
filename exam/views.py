@@ -42,7 +42,11 @@ def group_list(request):
 
 
 def problem(request):
-    p = prob.objects.get_queryset()[:1][0]
+    if request.GET.get('id'):
+        p = prob.objects.filter(id=request.GET.get('id'))[0]
+    else:
+        p = prob.objects.get_queryset()[:1][0]
+
     return render(request, 'problem.html', {'problem': p})
 
 
@@ -55,8 +59,8 @@ def createGroup(request):
         a = User.objects.get(id=request.session['userId'])
         Group(name=request.POST['name'], admin=a, description=request.POST['description'],
               date_created=datetime.now(), password=request.POST['password']).save()
-        return render(request, 'group_create_login.html', {'create': True, 'admin': a, 'mess': 'گروه با موفقیت ساخته شد'})
-
+        # return render(request, 'group_create_login.html', {'create': True, 'admin': a, 'mess': 'گروه با موفقیت ساخته شد'})
+        return HttpResponseRedirect('/profile/')
 
 def loginGroup(request, gId):
     if request.method == 'POST':
@@ -67,8 +71,9 @@ def loginGroup(request, gId):
         g = Group.objects.get(id=gId)
         if g.password == request.POST['password']:
             group_user_relation(user=User.objects.get(id=request.session['userId']), group=g).save()
-            return render(request, 'group_create_login.html', {'create': False, 'group': Group.objects.get(id=gId),
-                                                                   'mess': 'در گروه ثبت نام شدی'})
+            return HttpResponseRedirect('/profile/')
+            # return render(request, 'group_create_login.html', {'create': False, 'group': Group.objects.get(id=gId),
+            #                                                        'mess': 'در گروه ثبت نام شدی'})
         else:
             return render(request, 'group_create_login.html', {'create': False, 'group': Group.objects.get(id=gId),
                                                                    'mess': 'رمز اشتباهههه'})

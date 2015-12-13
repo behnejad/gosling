@@ -12,7 +12,7 @@
 						</a>
 					</h4>
 				</div>
-				<div id="collapseOne" class="panel-collapse collapse {% if panel == 1 %}in{% endif %}" role="tabpanel" aria-labelledby="headingOne">
+				<div id="collapseOne" class="panel-collapse collapse {% if panel == 1 or request.method == 'GET' %}in{% endif %}" role="tabpanel" aria-labelledby="headingOne">
 					<div class="panel-body">
 						{% if success %}
 							{% if panel == 1 and message != Null %}
