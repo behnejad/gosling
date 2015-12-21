@@ -1,10 +1,10 @@
 from django.conf.urls import include, url
 from django.contrib import admin
-from dajaxice.core import dajaxice_autodiscover, dajaxice_config
+#from dajaxice.core import dajaxice_autodiscover, dajaxice_config
 from django.views.generic import TemplateView
 from gosling import settings
 
-dajaxice_autodiscover()
+#dajaxice_autodiscover()
 admin.autodiscover()
 
 urlpatterns = (
