@@ -147,3 +147,9 @@ input.addproblem {
 .with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
     background-color: #4a9fe9;
 }
+.problem-choice {
+    text-align: right;
+    direction: rtl;
+    padding-right: 20px;
+}
+

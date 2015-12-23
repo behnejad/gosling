@@ -25,7 +25,7 @@ class problem(models.Model):
     correctanswer = models.IntegerField()
     
     def anss(self):
-        return self.answers.split('|')
+        return self.answers.split('|')[:-1]
 
     def __unicode__(self):
         return self.sec.__unicode__()
@@ -36,6 +36,9 @@ class exam(models.Model):
     startdate = models.DateTimeField()
     enddate = models.DateTimeField()
     name = models.CharField(max_length=40)
+
+    def __unicode__(self):
+        return self.name
 
 
 class examproblems(models.Model):

@@ -12,7 +12,8 @@ def index(request):
 
 
 def exam(request, eID):
-    return render(request, 'index.html')
+    return render(request, 'exam.html', {'probs': examproblems.objects.filter(examid=eID),
+                                         'exam': examination.objects.filter(id=eID)})
 
 
 def exam_list(request):

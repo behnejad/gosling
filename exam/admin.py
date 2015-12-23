@@ -19,11 +19,12 @@ class problemAdmin(admin.ModelAdmin):
 
 @admin.register(models.exam)
 class examAdmin(admin.ModelAdmin):
-    list_display = ('startdate', 'enddate', 'name', )
-    search_fields = ('startdate', 'enddate', 'name', )
+    list_display = ('name', 'startdate', 'enddate', )
+    search_fields = ('name', 'startdate', 'enddate', )
     list_per_page = 15
     list_max_show_all = 30
-    
+
+
 @admin.register(models.examproblems)
 class examproblemsAdmin(admin.ModelAdmin):
     list_display = ('examid', 'problemid', )
