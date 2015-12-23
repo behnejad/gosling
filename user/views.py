@@ -16,8 +16,9 @@ def profile(request):
 
     u = User.objects.get(id=request.session.get('userId'))
     grp = group_user_relation.objects.filter(user=request.session['userId'])[:3]
+    admins = group.objects.filter(admin=u.id)
     return render(request, 'profile.html', {'user': u, 'avatar': exists('statics/avatars/%s.jpg' % u.email),
-                                            'grp': grp})
+                                            'grp': grp, 'admin': admins})
 
 
 def close(request):

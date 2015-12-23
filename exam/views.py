@@ -29,10 +29,7 @@ def admin(request, gId):
 
 def group(request, eID):
     g = Group.objects.get(id=eID)
-    if request.session['userId'] == g.admin_id:
-        use = False
-    else:
-        use = True
+    use = False if request.session['userId'] == g.admin_id else True
     mems = group_user_relation.objects.filter(group=eID)
     return render(request, 'group.html', {'group': g, 'mems': mems, 'user': use})
 
@@ -90,7 +87,8 @@ def add_problem(request):
 
     elif request.POST.get('final'):
         prob(sec=section.objects.get(id=request.POST.get('index')), text=request.POST.get('text'),
-             question=request.POST.get('question'), answers=request.POST.get('answers')).save()
+             question=request.POST.get('question'), answers=request.POST.get('answers'),
+             correctanswer=request.POST.get('answe')).save()
         return render(request, 'ok.html')
 
     else:
@@ -105,18 +103,19 @@ def answer_question(request):
     exami = request.POST.get('exam')
     problemi = request.POST.get('problem')
     answeri = request.POST.get('answer')
-    if (userin and examin and problemin and answern):
+    if (useri and exami and problemi and answeri):
         t = examination.objects.filter(examid=exami)[:1]
-        if t.count() and group_user_relation.objects.filter(user=useri, group=t.groupid)[:1].count() and examproblems.objects.filter(examid=exami, problemid=problemi)[:1].count():
+        if t.count() and group_user_relation.objects.filter(user=useri, group=t[0].groupid)[:1].count() and examproblems.objects.filter(examid=exami, problemid=problemi)[:1].count():
             u = useranswers.objects.filter(userid=useri, examid=exami, problemid=problemi)
             if (u.count()):
+                pass
                 #useranswers.objects.get(userid=useri, examid=exami, problemid=problemi)
                 #update the answer
             else:
                 useranswers(userid=useri, examid=exami, problemid=problemi, answer=answeri).save()
             return render(request, 'ok.html')
 
-            
+
 def answer_questions(request):
     userin = request.POST.get('user')
     examin = request.POST.get('exam')
@@ -130,14 +129,16 @@ def answer_questions(request):
             answeri = answern[i]
             
             t = examination.objects.filter(examid=exami)[:1]
-            if t.count() and group_user_relation.objects.filter(user=useri, group=t.groupid)[:1].count() and examproblems.objects.filter(examid=exami, problemid=problemi)[:1].count():
+            if t.count() and group_user_relation.objects.filter(user=useri, group=t[0].groupid)[:1].count() and examproblems.objects.filter(examid=exami, problemid=problemi)[:1].count():
                 u = useranswers.objects.filter(userid=useri, examid=exami, problemid=problemi)
                 if (u.count()):
+                    pass
                     #useranswers.objects.get(userid=useri, examid=exami, problemid=problemi)
                     #update the answer
                 else:
                     useranswers(userid=useri, examid=exami, problemid=problemi, answer=answeri).save()
     return render(request, 'profile.html')
+
 
 def create_exam(request):
     gr = request.POST.get('group')

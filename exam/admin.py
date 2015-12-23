@@ -33,7 +33,7 @@ class examproblemsAdmin(admin.ModelAdmin):
     
 
 @admin.register(models.useranswers)
-class useranswers(models.Model):
+class useranswers(admin.ModelAdmin):
     list_display = ('examid', 'problemid', 'userid', 'answer', )
     search_fields = ('examid', 'problemid', 'userid', )
     list_per_page = 15

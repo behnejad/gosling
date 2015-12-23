@@ -25,6 +25,7 @@ $(document).on('click', 'a.radio-answer', function () {
 				</ul>
 				<a class="label label-danger pak-radio-answer hide" id="` + parent + `">حذف سوال</a>
 				<hr>
+				<input class="addproblem" type="number" placeholder="شماره گزینه درست" name="answe">
 			</li>`;
     $(temp).clone().hide().appendTo('ol.radio-answers').slideDown('fast');
     radioStat[parent] = {};
@@ -122,7 +123,9 @@ $('button#submit').click(function () {
         url: "",
         data: {final: true, index: state, text: CKEDITOR.instances['problem'].getData(),
                 question: $('input.radio-title').val(), answers: ans, csrftoken: $.cookie("csrftoken"),
-                csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()},
+                csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val(),
+                answe: $("input[name='answe']").val()
+        },
         success: function (data, textStatus, jqXHR) {
             console.log('asd');
             console.log(data);

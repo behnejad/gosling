@@ -54,3 +54,4 @@ Desktop.ini
 *.db*
 *.in
 *.out
+migrations/*

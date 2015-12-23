@@ -44,15 +44,12 @@
 					</div>
 				{% block action %}
 					<ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'profile' %}" class="irmitra bold size18">حساب کاربری</a>
+                    <li><a href="{% url 'close' %}" class="irmitra bold size18">خروج</a></li>
 						<li class="dropdown">
-							<a class="dropdown-toggle irmitra bold" data-toggle="dropdown">تنظیمات<span class="caret"></span></a>
+							<span class="caret"></span>
 							<ul class="dropdown-menu" role="menu" style="text-align: left">
 								{% block extraDrop %}{% endblock %}
-								<li><a href="{% url 'profile' %}" class="irmitra bold size18">حساب کاربری
-									 <span class="glyphicon glyphico</li>n-user navbar-right"></span></a>
-								<li><a href="{% url 'close' %}" class="irmitra bold size18">خروج
-								   <span class="glyphicon glyphicon-off navbar-right"></span></a>
-								</li>
 							</ul>
 						</li>
 					</ul>

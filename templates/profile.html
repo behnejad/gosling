@@ -3,8 +3,9 @@
 {% block navLeft %}{% endblock %}
 {% block extRight %}{% endblock %}
 {% block content %}
+    <h1 align="right" class="irmitra rtl">سلام{{ user.person }}</h1>
     <div class="col-sm-3 irmitra rtl">
-        <div class="panel panel-success" style="margin-top: 60px;">
+        <div class="panel panel-success" >
             <div class="panel-heading">
                 <h4 class="panel-title"><b>مشخصات کاربری</b></h4>
             </div>
@@ -26,16 +27,13 @@
                             <input type="submit" value="تغییر آواتار" class="btn btn-success btn-block">
                         </form>
                     </li>
-					{% if user.type != 'S' %}
-						<li class="list-group-item"><a href="{% url 'addProblem' %}" >اضافه کردن سوال</a></li>
-						<li class="list-group-item"><a href="{% url 'createGroup' %}" >ساختن یک گروه</a></li>
-					{% endif %}
                 </ul>
             </div>
         </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-3 col-md-offset-1">
         <div class="rtl irmitra" align="center">
+        {% if request.GET.mes %}
             <h1>
                 {% if request.GET.mes == '1' %}
                     تغییر موفق
@@ -43,12 +41,39 @@
                     تغییر ناموفق
                 {% endif %}
             </h1>
+        {% endif %}
+        {% if admin or user.type != 'S' %}
+            <div class="panel-group">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" role="tab" id="headone">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="" href="#collOne" aria-expanded="true"
+                               aria-controls="collOne">
+                                گروه هایی که مدیر آن هستید
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collOne" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headone">
+                        <div class="panel-body">
+                            <ul class="list-group" style="padding-right:0">
+                            {% for i in admin %}
+                                <li class="list-group-item"><a href="{% url 'group' i.id %}">{{ i.name }}</a></li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel-footer" style="font-weight: bold">
+                        <li class="list-group-item"><a href="{% url 'addProblem' %}" >اضافه کردن سوال</a></li>
+						<li class="list-group-item"><a href="{% url 'createGroup' %}" >ساختن یک گروه</a></li>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
         </div>
     </div>
-    <div class="col-sm-4 col-sm-offset-2">
+    <div class="col-sm-4 col-sm-offset-1">
         <div class="rtl irmitra">
-            <h1>سلام{{ user.person }}</h1>
-
             <div class="panel-group" id="accordion">
                 <div class="panel panel-success">
                     <div class="panel-heading" role="tab" id="headingOne">
