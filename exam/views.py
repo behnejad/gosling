@@ -27,7 +27,7 @@ def problem(request):
 
 
 def group(request):
-    return render(request, 'group.html')
+    return render(request, 'group.html', {'admin': True})
 
 
 def createGroup(request):
