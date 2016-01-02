@@ -40,11 +40,7 @@ def group_list(request):
 
 
 def problem(request):
-    if request.GET.get('id'):
-        p = prob.objects.filter(id=request.GET.get('id'))[0]
-    else:
-        p = prob.objects.get_queryset()[:1][0]
-
+    p = prob.objects.filter(id=request.GET.get('id'))[0] if request.GET.get('id') else prob.objects.get_queryset()[:1][0]
     return render(request, 'problem.html', {'problem': p})
 
 
@@ -95,10 +91,11 @@ def add_problem(request):
     else:
         return render(request, 'section.html', {'next': 'type', 'data': field.objects.get_queryset()})
 
+
 def problem_list(request):
     return render(request, 'index.html')
 
-# Warning: Should only be used with AJAX or something similar
+
 def answer_question(request):
     useri = request.POST.get('user')
     exami = request.POST.get('exam')
@@ -152,7 +149,7 @@ def create_exam(request):
         return render(request, 'examaddproblems.html')
     return render(request, 'profile.html')
 
-# AJAX???
+
 def add_problem_to_exam(request):
     exid = request.POST.get('exam')
     prid = request.POST.get('problem')
