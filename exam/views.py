@@ -128,7 +128,7 @@ def answer_questions(request):
             exami = examin[i]
             problemi = problemin[i]
             answeri = answern[i]
-            
+
             t = examination.objects.filter(examid=exami)[:1]
             if t.count() and group_user_relation.objects.filter(user=useri, group=t[0].groupid)[:1].count() and examproblems.objects.filter(examid=exami, problemid=problemi)[:1].count():
                 u = useranswers.objects.filter(userid=useri, examid=exami, problemid=problemi)
@@ -146,17 +146,16 @@ def create_exam(request):
     sd = request.POST.get('startdate')
     ed = request.POST.get('enddate')
     nm = request.POST.get('name')
-    
+
     if (gr and sd and ed and nm):
         examination(groupid=gr, startdate=sd, enddate=ed, name=nm).save()
         return render(request, 'examaddproblems.html')
     return render(request, 'profile.html')
-    
+
 # AJAX???
 def add_problem_to_exam(request):
     exid = request.POST.get('exam')
     prid = request.POST.get('problem')
-    
+
     if (exid and prid):
         examproblems(examid=exid, problemid=prid).save()
-    
