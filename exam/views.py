@@ -31,6 +31,10 @@ def admin(request, gId):
 
 def group(request, eID):
     g = Group.objects.get(id=eID)
+    if request.method == 'POST':
+        g.name = request.POST['name']
+        g.save()
+
     use = False if request.session['userId'] == g.admin_id else True
     mems = group_user_relation.objects.filter(group=eID)
     exams = examination.objects.filter(groupid=eID)
@@ -38,11 +42,23 @@ def group(request, eID):
 
 
 def makeExam(request):
-    pass
+    gr = request.POST.get('groupId')
+    sd = request.POST.get('startDate')
+    ed = request.POST.get('endDate')
+    nm = request.POST.get('examName')
+
+    if (gr and sd and ed and nm):
+        examination(groupid=Group.objects.get(id=gr), startdate=datetime.strptime(sd, '%Y-%m-%d %I:%M %p'),
+                    enddate=datetime.strptime(ed, '%Y-%m-%d %I:%M %p'), name=nm).save()
+
+    return HttpResponseRedirect('/exam/examMake/' + gr)
+
+
+def selectQuestions(request, eID):
+    ex = examination.objects.get(id=eID)
 
 
 def addToGroup(request):
-    print type(int(request.POST['gid']))
     group_user_relation(user=User.objects.get(email=request.POST['mail']),
                         group=Group.objects.get(id=request.POST['gid'])).save()
     return HttpResponse('Yes')
@@ -55,7 +71,6 @@ def group_list(request):
 def problem(request):
     p = prob.objects.filter(id=request.GET.get('id'))[0] if request.GET.get('id') else prob.objects.get_queryset()[:1][0]
     return render(request, 'problem.html', {'problem': p})
-
 
 def createGroup(request):
     if request.method == 'GET':
@@ -148,18 +163,6 @@ def answer_questions(request):
                     #update the answer
                 else:
                     useranswers(userid=useri, examid=exami, problemid=problemi, answer=answeri).save()
-    return render(request, 'profile.html')
-
-
-def create_exam(request):
-    gr = request.POST.get('group')
-    sd = request.POST.get('startdate')
-    ed = request.POST.get('enddate')
-    nm = request.POST.get('name')
-
-    if (gr and sd and ed and nm):
-        examination(groupid=gr, startdate=sd, enddate=ed, name=nm).save()
-        return render(request, 'examaddproblems.html')
     return render(request, 'profile.html')
 
 
