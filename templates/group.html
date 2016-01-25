@@ -252,7 +252,7 @@
             url: "{% url 'addToGroup' %}",
             type: "POST",
             data: { mail: user.value, gid: groupId, csrftoken: $.cookie("csrftoken"),
-                csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val() },
+                csrfmiddlewaretoken: $.cookie("csrftoken") },
             statusCode: {
                 200: function(){
                     alert('فرد موزد نظر اضافه شد');

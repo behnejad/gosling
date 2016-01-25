@@ -1,6 +1,6 @@
 from django.db import models
 from user.models import group, User
-
+from datetime import datetime
 
 class field(models.Model):
     name = models.CharField(max_length=40)
@@ -40,6 +40,10 @@ class exam(models.Model):
     def __unicode__(self):
         return self.name
 
+    @property
+    def isStart(self):
+        return self.startdate < datetime.now() < self.enddate
+
 
 class examproblems(models.Model):
     examid = models.ForeignKey(exam)
@@ -50,4 +54,4 @@ class useranswers(models.Model):
     examid = models.ForeignKey(exam)
     problemid = models.ForeignKey(problem)
     userid = models.ForeignKey(User)
-    answer = models.IntegerField()
+    answer = models.IntegerField(default=0)

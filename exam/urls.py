@@ -17,4 +17,6 @@ urlpatterns = (
     url(r'^loginGroup/(?P<gId>\d{1,4})$', views.loginGroup, name='loginGroup'),
     url(r'^createGroup/$', views.createGroup, name='createGroup'),
     url(r'^admin/(?P<gId>\d{1,4})$', views.admin, name='groupAdmin'),
+    url(r'^answer/set$', views.answerProblem, kwargs={'mode': 'set'}, name='answerProblem'),
+    url(r'^answer/del$', views.answerProblem, kwargs={'mode': 'del'}, name='answerProblemDelete'),
 )

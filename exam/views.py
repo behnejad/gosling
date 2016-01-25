@@ -13,8 +13,34 @@ def index(request):
 
 
 def exam(request, eID):
+    e = examination.objects.get(id=eID)
+    if not e.isStart:
+        return render(request, 'index.html')
+
     return render(request, 'exam.html', {'probs': examproblems.objects.filter(examid=eID),
-                                         'exam': examination.objects.filter(id=eID)})
+                                         'exam': e, 'id': eID})
+
+
+def answerProblem(request, mode=''):
+    eID = request.POST['eID']
+    pID = request.POST['problem']
+    uID = request.session['userId']
+
+    if mode == 'set':
+        sel = request.POST['select']
+        uan = useranswers.objects.filter(examid=eID, problemid=pID, userid=uID)[:1]
+        if uan.count():
+            uan[0].answer = sel
+            uan[0].save()
+
+        else:
+            useranswers(examid=examination.objects.get(id=eID), problemid=prob.objects.get(id=pID),
+                        userid=User.objects.get(id=uID), answer=sel).save()
+
+    if mode == 'del':
+        useranswers.objects.filter(examid=eID, problemid=pID, userid=uID).delete()
+
+    return HttpResponse('Y')
 
 
 def exam_list(request):

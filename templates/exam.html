@@ -8,9 +8,9 @@
             <div class="panel with-nav-tabs panel-primary">
                 <div class="panel-heading">
                     <div class="row">
-                        <h4 class="col-md-3">From: {{ exam.0.startdate }}</h4>
-                        <h4 class="col-md-3">To: {{ exam.0.enddate }}</h4>
-                        <h4 align="right" class="col-md-6">{{ exam.0.name }}</h4>
+                        <h4 class="col-md-3">From: {{ exam.startdate }}</h4>
+                        <h4 class="col-md-3">To: {{ exam.enddate }}</h4>
+                        <h4 align="right" class="col-md-6">{{ exam.name }}</h4>
                     </div>
                 </div>
                 {% for prob in probs %}
@@ -20,13 +20,13 @@
                                 {{ prob.problemid.text|safe }}
                                 <hr>
                                 <div class="row">
-                                    <input type="button" value="حذف گزینه" class="btn btn-danger col-md-offset-1 col-md-1" id="">
+                                    <input type="button" value="حذف گزینه" class="btn btn-danger col-md-offset-1 col-md-1 delete" id="{{ prob.id }}">
                                     <h4 align="right" class="col-md-offset-3 col-sm-6">{{ prob.problemid.question }}</h4>
                                 </div>
                                 <div class="radio" dir="rtl">
                                     {% for choice in prob.problemid.anss %}
                                         <div>
-                                            <input id="ro{{ prob.id }}{{ forloop.counter }}" type="radio" name="optradio{{ prob.id }}">
+                                            <input id="ro{{ prob.id }}{{ forloop.counter }}" type="radio" name="{{ prob.id }}" value="{{ forloop.counter }}">
                                             <label for="ro{{ prob.id }}{{ forloop.counter }}" class="problem-choice">{{ choice }}</label>
                                         </div>
                                     {% endfor %}
@@ -36,9 +36,31 @@
                     </div>
                 {% endfor %}
                 <div class="panel-footer">
-                    <button type="button" class="btn btn-primary">اتمام آزمون</button>
+                    <button type="button" class="btn btn-primary">ثبت نهایی</button>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+{% block extra %}
+    <script>
+    var examId = {{ id }};
+        $('input[type=radio]').click(function(){
+            $.ajax({
+                url: "{% url 'answerProblem' %}",
+                type: "post",
+                data: {csrftoken: $.cookie("csrftoken"), csrfmiddlewaretoken: $.cookie("csrftoken"),
+                        eID: examId, problem: $(this).attr('name'), select: $(this).attr('value')}
+            });
+        });
+        $('input.delete').click(function(){
+            $('input[type=radio][name=' + $(this).attr('id') + ']:checked').prop('checked', false);
+            $.ajax({
+                url: "{% url 'answerProblemDelete' %}",
+                type: "post",
+                data: {csrftoken: $.cookie("csrftoken"), csrfmiddlewaretoken: $.cookie("csrftoken"),
+                        eID: examId, problem: $(this).attr('id')}
+            });
+        });
+    </script>
 {% endblock %}
