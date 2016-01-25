@@ -5,8 +5,10 @@ from exam import views
 urlpatterns = (
     url(r'^$', views.index, name='examIndex'),
     url(r'^exam/(?P<eID>\d{1,4})$', views.exam, name='exam'),
+    url(r'^makeExam$', views.makeExam, name='makeExam'),
     url(r'^examList/$', views.exam_list, name='examList'),
     url(r'^group/(?P<eID>\d{1,4})$', views.group, name='group'),
+    url(r'^groupAdd$', views.addToGroup, name='addToGroup'),
     url(r'^groupList/$', views.group_list, name='groupList'),
     url(r'^problemList/$', views.problem_list, name='problemList'),
     url(r'^problem/$', views.problem, name='Problem'),

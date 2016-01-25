@@ -4,7 +4,8 @@ from django.shortcuts import render, render_to_response
 from exam.models import field, section, problem as prob, exam as examination, examproblems, useranswers
 from user.models import User, group as Group, group_user_relation
 from datetime import datetime
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+from django.db.models import Count, Max, Min, Avg
 
 
 def index(request):
@@ -32,7 +33,19 @@ def group(request, eID):
     g = Group.objects.get(id=eID)
     use = False if request.session['userId'] == g.admin_id else True
     mems = group_user_relation.objects.filter(group=eID)
-    return render(request, 'group.html', {'group': g, 'mems': mems, 'user': use})
+    exams = examination.objects.filter(groupid=eID)
+    return render(request, 'group.html', {'group': g, 'mems': mems, 'user': use, 'exams': exams})
+
+
+def makeExam(request):
+    pass
+
+
+def addToGroup(request):
+    print type(int(request.POST['gid']))
+    group_user_relation(user=User.objects.get(email=request.POST['mail']),
+                        group=Group.objects.get(id=request.POST['gid'])).save()
+    return HttpResponse('Yes')
 
 
 def group_list(request):

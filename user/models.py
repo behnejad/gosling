@@ -68,7 +68,7 @@ class group_user_relation(models.Model):
     relation_types = (('T', 'Teacher'), ('S', 'Student'))
     user = models.ForeignKey(User)
     group = models.ForeignKey(group)
-    type = models.CharField(max_length=1, choices=relation_types, default='T')
+    type = models.CharField(max_length=1, choices=relation_types, default='S')
 
     
 class prereg(models.Model):

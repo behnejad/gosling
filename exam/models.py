@@ -35,7 +35,7 @@ class exam(models.Model):
     groupid = models.ForeignKey(group)
     startdate = models.DateTimeField()
     enddate = models.DateTimeField()
-    name = models.CharField(max_length=40)
+    name = models.CharField(max_length=80)
 
     def __unicode__(self):
         return self.name

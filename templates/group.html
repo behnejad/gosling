@@ -3,6 +3,7 @@
 {% block extRight %}{% endblock %}
 {% block branding %}{% endblock %}
 {% block content %}
+    <script>var groupId = "{{ group.id }}";</script>
     <div class="col-sm-12">
         <div class="rtl irmitra" style="font-size:18px;">
             <div class="panel with-nav-tabs panel-primary">
@@ -84,8 +85,8 @@
                                         <div class="row">
                                             {% if not user %}
                                                 <div class="col-sm-6 col-sm-offset-3">
-                                                    <button class="btn btn-lg btn-primary btn-block" type="submit">ذخیره
-                                                        تغییرات
+                                                    <button class="btn btn-lg btn-primary btn-block" type="submit">
+                                                        ذخیره تغییرات
                                                     </button>
                                                 </div>
                                             {% endif %}
@@ -104,7 +105,6 @@
                                                 <form action="{% url 'groupAdmin' group.id %}"
                                                       method="post">{% csrf_token %}
                                                     <input type="text" value="{{ i.user_id }}" class="hide" name="user">
-
                                                     <div class="col-sm-2">
                                                         <button type="submit" class="btn btn-primary">حذف فرد</button>
                                                     </div>
@@ -118,56 +118,74 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="t3">
-                            <div class="col-sm-8 col-sm-offset-2">
-                                <div class="panel panel-primary" align="right">
-                                    <div class="panel-body">
-                                        <div class="col-sm-4" align="left">
-                                            <button type="button" class="btn btn-primary">ویرایش</button>
-                                            <button type="button" class="btn btn-primary">حذف</button>
-                                        </div>
-                                        <div class="col-sm-8" align="right">
-                                            امتحان کنکور
+                            <div class="col-sm-10 col-sm-offset-1">
+                                {% for exam in exams %}
+                                    <div class="panel panel-primary" align="right">
+                                        <div class="panel-body">
+                                            <div class="col-sm-3" align="left">
+                                                <a href='{% url 'exam' exam.id %}' class="btn btn-primary">ورود</a>
+                                                {% if not user %}
+                                                    <a href='#' class="btn btn-primary">ویرایش</a>
+                                                    <a href='#' class="btn btn-primary">حذف</a>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-sm-3" align="right">
+                                                <span class="label label-danger"> تاریخ اتمام:{{ exam.startdate }}</span>
+                                            </div>
+                                            <div class="col-sm-3" align="right">
+                                                <span class="label label-success">تاریخ شروع:{{ exam.enddate }}</span>
+                                            </div>
+                                            <div class="col-sm-3" align="right">
+                                                {{ exam.name }}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                         <div class="tab-pane fade" id="t4">
                             <div class="col-sm-8 col-sm-offset-2">
                                 <div class="panel panel-primary" align="right" style="padding: 1em;">
                                     <br class="panel-body">
-
-                                    <div class="row">
-                                        <div class="col-sm-2 col-sm-push-10">
-                                            نام امتحان:
+                                    <form action="{% url 'makeExam' %}" method="post">{% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-sm-2 col-sm-push-10">
+                                                نام امتحان:
+                                            </div>
+                                            <div class="col-sm-10 col-sm-pull-2">
+                                                <input type="text" class="form-control" name="examName">
+                                            </div>
                                         </div>
-                                        <div class="col-sm-10 col-sm-pull-2">
-                                            <input type="text" class="form-control" id="usr">
+                                        </br>
+                                        <div class="row">
+                                            <div class="col-sm-2 col-sm-push-10">
+                                                تاریخ شروع:
+                                            </div>
+                                            <div class='input-group date col-sm-9 col-sm-pull-2' dir="ltr" id='datetimepicker1'>
+                                                <input type="text" class="form-control" name="startDate" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    </br>
-                                    <div class="row">
-                                        <div class="col-sm-2 col-sm-push-10">
-                                            تاریخ شروع:
+                                        </br>
+                                        <div class="row">
+                                            <div class="col-sm-2 col-sm-push-10">
+                                                تاریخ پایان:
+                                            </div>
+                                            <div class='input-group date col-sm-9 col-sm-pull-2' dir="ltr" id='datetimepicker2'>
+                                                <input type="text" class="form-control" name="endDate">
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-10 col-sm-pull-2">
-                                            <input type="text" class="form-control" id="usr">
+                                        </br>
+                                        <div align="center">
+                                            <button type="submit" class="btn btn-primary">ساختن امتحان</button>
                                         </div>
-                                    </div>
-                                    </br>
-                                    <div class="row">
-                                        <div class="col-sm-2 col-sm-push-10">
-                                            تاریخ پایان:
-                                        </div>
-                                        <div class="col-sm-10 col-sm-pull-2">
-                                            <input type="text" class="form-control" id="usr">
-                                        </div>
-                                    </div>
-                                    </br>
-                                    <div align="center">
-                                        <button type="button" class="btn btn-primary">ساختن امتحان</button>
-                                    </div>
-                                    </br>
+                                        </br>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -177,9 +195,9 @@
                                     <div class="panel-body" align="center">
                                         <div class="form-group" align="right">
                                             ایمیل کاربر را وارد کنید:
-                                            <input type="text" class="form-control" id="usr">
+                                            <input type="text" class="form-control" id="userEmail">
                                         </div>
-                                        <button type="button" class="btn btn-primary">اضافه کردن فرد</button>
+                                        <button type="button" class="btn btn-primary" id="addUser">اضافه کردن فرد</button>
                                     </div>
                                 </div>
                             </div>
@@ -221,4 +239,36 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block extra %}
+<link href="/statics/bootstrap/css/datetimepicker.css" rel="stylesheet">
+<script src="/statics/bootstrap/js/datetimepicker.js"></script>
+<script>
+    $('#datetimepicker1').datetimepicker();
+    $('#datetimepicker2').datetimepicker();
+    $('#addUser').click(function(){
+        var user = $('#userEmail')[0];
+        if (!user.value.length){
+            alert('ایمیل بزن برادر');
+            return;
+        }
+        $.ajax({
+            url: "{% url 'addToGroup' %}",
+            type: "POST",
+            data: { mail: user.value, gid: groupId, csrftoken: $.cookie("csrftoken"),
+                csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val() },
+            statusCode: {
+                200: function(){
+                    alert('فرد موزد نظر اضافه شد');
+                    user.value = '';
+                }
+            },
+            complete: function(e, xhr, settings) {
+                if (e.status !== 200) {
+                    alert('خظا در افزودن کاربر');
+                }
+            }
+        });
+    });
+</script>
 {% endblock %}
