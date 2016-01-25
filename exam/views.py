@@ -156,3 +156,30 @@ def add_problem_to_exam(request):
 
     if (exid and prid):
         examproblems(examid=exid, problemid=prid).save()
+
+
+def user_exam_evaluation(request):
+    userid = request.POST.get('user')
+    examid = request.POST.get('exam')
+    groupid = request.POST.get('group')
+    if userid and examid:
+        all_problem_info = []
+        all_user_ans = []
+
+        AnswerOfUserInExam = useranswers.objects.filter(userid=userid, examid=examid, groupid=groupid)
+        for i in range(0, len(AnswerOfUserInExam)):
+            problem_id = AnswerOfUserInExam.problemid
+            user_ans = AnswerOfUserInExam.answer
+            problem_info = prob.objects.filter(problemid=problem_id)
+
+            if problem_info.count() == 1:
+                all_problem_info.append(problem_info)
+            else:
+                assert "error"
+
+            all_user_ans.append(user_ans)
+
+        return render(request, 'user_exam_evaluation.html', {'all_user_ans': all_user_ans, 'all_problem_info': all_problem_info})
+
+    return render(request, 'profile.html')
+
