@@ -117,20 +117,23 @@
                                 {% for exam in exams %}
                                     <div class="panel panel-primary" align="right">
                                         <div class="panel-body">
-                                            <div class="col-sm-3" align="left">
-                                                <a href='{% url 'exam' exam.id %}' class="btn btn-primary">ورود</a>
+                                            <div class="col-sm-4" align="left" style="padding-top: 9px;">
+                                                {% if exam.isStart %}
+                                                    <a href='{% url 'exam' exam.id %}' class="btn btn-warning">در حال اجرا</a>
+                                                {% else %}
+                                                    <a href='{% url 'exam' exam.id %}' class="btn btn-info">به اتمام رسید</a>
+                                                {% endif %}
                                                 {% if not user %}
                                                     <a href='#' class="btn btn-primary">ویرایش</a>
                                                     <a href='#' class="btn btn-primary">حذف</a>
                                                 {% endif %}
                                             </div>
-                                            <div class="col-sm-3" align="right">
-                                                <span class="label label-danger"> تاریخ اتمام:{{ exam.startdate }}</span>
+                                            <div class="col-sm-4" align="right">
+                                                 تاریخ شروع:{{ exam.startdate }}
+                                                <br>
+                                                تاریخ اتمام:{{ exam.enddate }}
                                             </div>
-                                            <div class="col-sm-3" align="right">
-                                                <span class="label label-success">تاریخ شروع:{{ exam.enddate }}</span>
-                                            </div>
-                                            <div class="col-sm-3" align="right">
+                                            <div class="col-sm-4" align="right" style="padding-top: 12.5px;">
                                                 {{ exam.name }}
                                             </div>
                                         </div>
