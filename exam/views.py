@@ -108,6 +108,20 @@ def group_list(request):
     return render(request, 'groupList.html', {'list': Group.objects.get_queryset()})
 
 
+def pick_question(request):
+    questions_info = []
+    question_info = {}
+
+    question_info['info'] = "dsds";
+    question_info['question'] = "صورت سوال"
+    question_info['subject'] = "مهندسی نرم"
+    question_info['id'] = 12
+    for i in range(0, 10):
+        questions_info.append(question_info)
+
+    return render(request, 'pick_question.html', {'questions_info': questions_info})
+
+
 def problem(request):
     p = prob.objects.filter(id=request.GET.get('id'))[0] if request.GET.get('id') else prob.objects.get_queryset()[:1][0]
     return render(request, 'problem.html', {'problem': p})

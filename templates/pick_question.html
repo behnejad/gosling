@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block extLeft %}{% endblock %}
+{% block extRight %}{% endblock %}
+{% block branding %}{% endblock %}
+{% block content %}
+    <div class="col-sm-12">
+        <div class="rtl irmitra" style="font-size:18px;">
+            <div class="panel panel-primary" align="right">
+            <form action="{% url 'makeExam' %}" method="post">{% csrf_token %}
+                <div class="panel-body">
+                    {% for question_info in questions_info %}
+                    <div class="panel panel-primary" align="right">
+                        <div class="panel-body">
+                            <div class="col-sm-6">توضیحات:
+                                {{ question_info.info }}
+                            </div>
+                            <div class="col-sm-3">سوال:
+                                {{ question_info.question }}
+                            </div>
+                            <div class="col-sm-2">موضوع:
+                                {{ question_info.subject }}
+                            </div>
+                            <div class="col-sm-1">
+                                <input type="checkbox" name="{{ question_info.id }}" value="y">
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-bottom: 15px; margin-right: 10px">ثبت</button>
+            </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
