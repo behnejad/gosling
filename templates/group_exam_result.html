@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block extLeft %}{% endblock %}
+{% block extRight %}{% endblock %}
+{% block branding %}{% endblock %}
+{% block content %}
+    <div class="col-sm-12">
+        <div class="rtl irmitra" style="font-size:18px;">
+            <div class="panel panel-primary" align="right">
+                <div class="panel-body">
+                    {% for user_info in users_info %}
+                    <div class="panel panel-primary" align="right">
+                        <div class="panel-body">
+                            <div class="col-sm-2">تعداد درست:
+                                {{ user_info.correct }}
+                            </div>
+                            <div class="col-sm-2">تعداد غلط:
+                                {{ user_info.incorrect }}
+                            </div>
+                            <div class="col-sm-5">
+                                <span class="label label-success">درصد:
+                                    {{ user_info.darsad }}
+                                </span>
+                            </div>
+                            <div class="col-sm-3">نام:
+                                {{ user_info.name }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="row" align="center" style="margin-bottom: 15px">
+                    <div class="col-sm-4">میانگین آزمون:
+                        {{ avg_exam }}
+                    </div>
+                    <div class="col-sm-4">کمترین نمره:
+                        {{ min_exam }}
+                    </div>
+                    <div class="col-sm-4">بیشترین نمره:
+                        {{ max_exam }}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

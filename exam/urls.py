@@ -19,4 +19,5 @@ urlpatterns = (
     url(r'^admin/(?P<gId>\d{1,4})$', views.admin, name='groupAdmin'),
     url(r'^answer/set$', views.answerProblem, kwargs={'mode': 'set'}, name='answerProblem'),
     url(r'^answer/del$', views.answerProblem, kwargs={'mode': 'del'}, name='answerProblemDelete'),
+    url(r'^groupExamResult$', views.group_exam_result, name='groupExamResult$'),
 )

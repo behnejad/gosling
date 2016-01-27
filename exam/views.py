@@ -43,6 +43,20 @@ def answerProblem(request, mode=''):
     return HttpResponse('Y')
 
 
+def group_exam_result(request):
+    users_info = []
+    user_info = {}
+    user_info['name'] = "هدی بگوند"
+    user_info['darsad'] = 100
+    user_info['correct'] = 10
+    user_info['incorrect'] = 1
+
+    for i in range(0, 10):
+        users_info.append(user_info)
+
+    return render(request, 'group_exam_result.html', {'avg_exam': 12, 'min_exam': 13, 'max_exam': 14, 'users_info': users_info})
+
+
 def exam_list(request):
     return render(request, 'index.html')
 
