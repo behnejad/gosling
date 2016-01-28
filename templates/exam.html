@@ -26,7 +26,7 @@
                                 <div class="radio" dir="rtl">
                                     {% for choice in prob.problemid.anss %}
                                         <div>
-                                            <input id="ro{{ prob.id }}{{ forloop.counter }}" type="radio" name="{{ prob.id }}" value="{{ forloop.counter }}">
+                                            <input id="ro{{ prob.id }}{{ forloop.counter }}" type="radio" name="{{ prob.problemid.id }}" value="{{ forloop.counter }}">
                                             <label for="ro{{ prob.id }}{{ forloop.counter }}" class="problem-choice">{{ choice }}</label>
                                         </div>
                                     {% endfor %}

@@ -5,6 +5,7 @@ from exam.models import field, section, problem as prob, exam as examination, ex
 from user.models import User, group as Group, group_user_relation
 from datetime import datetime
 from django.http import HttpResponseRedirect, HttpResponse
+from rank import getExamScores
 from django.db.models import Count, Max, Min, Avg
 
 
@@ -25,13 +26,15 @@ def answerProblem(request, mode=''):
     eID = request.POST['eID']
     pID = request.POST['problem']
     uID = request.session['userId']
+    print eID, pID, uID
 
     if mode == 'set':
-        sel = request.POST['select']
+        sel = int(request.POST['select'])
         uan = useranswers.objects.filter(examid=eID, problemid=pID, userid=uID)[:1]
         if uan.count():
-            uan[0].answer = sel
-            uan[0].save()
+            uan = uan[0]
+            uan.answer = sel
+            uan.save()
 
         else:
             useranswers(examid=examination.objects.get(id=eID), problemid=prob.objects.get(id=pID),
@@ -43,18 +46,26 @@ def answerProblem(request, mode=''):
     return HttpResponse('Y')
 
 
-def group_exam_result(request):
+def group_exam_result(request, eID):
+    res = getExamScores(eID)
     users_info = []
-    user_info = {}
-    user_info['name'] = "هدی بگوند"
-    user_info['darsad'] = 100
-    user_info['correct'] = 10
-    user_info['incorrect'] = 1
+    mx, mn = -100, 100
 
-    for i in range(0, 10):
-        users_info.append(user_info)
+    a = 0
+    for i in res[0]:
+        users_info.append({'name': res[0][i][2], 'correct': res[0][i][0], 'incorrect': res[0][i][1],
+                           'darsad': float(3 * res[0][i][0] - res[0][i][1]) / float(3 * res[1])})
 
-    return render(request, 'group_exam_result.html', {'avg_exam': 12, 'min_exam': 13, 'max_exam': 14, 'users_info': users_info})
+        if (users_info[-1]['darsad'] > mx):
+            mx = users_info[-1]['darsad']
+
+        if (users_info[-1]['darsad'] < mn):
+            mn = users_info[-1]['darsad']
+
+        a += users_info[-1]['darsad']
+
+    return render(request, 'group_exam_result.html', {'avg_exam': float(a) / len(res[0]), 'min_exam': mn * 100,
+                                                      'max_exam': mx * 100, 'users_info': users_info})
 
 
 def exam_list(request):

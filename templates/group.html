@@ -121,7 +121,7 @@
                                                 {% if exam.isStart %}
                                                     <a href='{% url 'exam' exam.id %}' class="btn btn-warning">در حال اجرا</a>
                                                 {% else %}
-                                                    <a href='{% url 'exam' exam.id %}' class="btn btn-info">به اتمام رسید</a>
+                                                    <a href='{% url 'groupExamResult' exam.id %}' class="btn btn-info">به اتمام رسید</a>
                                                 {% endif %}
                                                 {% if not user %}
                                                     <a href='#' class="btn btn-primary">ویرایش</a>

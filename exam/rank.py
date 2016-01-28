@@ -11,14 +11,14 @@ def getExamScores(exami, perproblem=False):
         if (perproblem):
             k = u.problemid.id
         else:
-            k = u.userid.person
+            k = u.userid.id
         if (k in userStatus):
             if (u.answer == u.problemid.correctanswer):
                 userStatus[k][0] += 1
             else:
                 userStatus[k][1] += 1
         else:
-            m = [0,0]
+            m = [0,0,u.userid.person]
             if (u.answer == u.problemid.correctanswer):
                 m[0] += 1
             else:

@@ -6,6 +6,7 @@ urlpatterns = (
     url(r'^$', views.index, name='examIndex'),
     url(r'^exam/(?P<eID>\d{1,4})$', views.exam, name='exam'),
     url(r'^examMake/(?P<eID>\d{1,4})$', views.selectQuestions, name='selectQuestion'),
+    url(r'^groupExamResult/(?P<eID>\d{1,4})$', views.group_exam_result, name='groupExamResult'),
     url(r'^makeExam$', views.makeExam, name='makeExam'),
     url(r'^examList/$', views.exam_list, name='examList'),
     url(r'^group/(?P<eID>\d{1,4})$', views.group, name='group'),
@@ -19,6 +20,5 @@ urlpatterns = (
     url(r'^admin/(?P<gId>\d{1,4})$', views.admin, name='groupAdmin'),
     url(r'^answer/set$', views.answerProblem, kwargs={'mode': 'set'}, name='answerProblem'),
     url(r'^answer/del$', views.answerProblem, kwargs={'mode': 'del'}, name='answerProblemDelete'),
-    url(r'^groupExamResult$', views.group_exam_result, name='groupExamResult$'),
     url(r'^pickQuestion$', views.pick_question, name='pickQuestion'),
 )

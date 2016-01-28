@@ -16,10 +16,13 @@
                                 <div class="col-sm-2">تعداد غلط:
                                     {{ user_info.incorrect }}
                                 </div>
-                                <div class="col-sm-5">
-                                <span class="label label-success">درصد:
-                                    {{ user_info.darsad }}
-                                </span>
+                                <div class="col-sm-3">
+                                    <span class="label label-success">درصد:
+                                        {{ user_info.darsad }}
+                                    </span>
+                                </div>
+                                <div class="col-sm-2">
+                                    <span class="label label-default">کارنامه</span>
                                 </div>
                                 <div class="col-sm-3">نام:
                                     {{ user_info.name }}
@@ -38,11 +41,8 @@
                     <div class="col-sm-4">بیشترین نمره:
                         {{ max_exam }}
                     </div>
-
                 </div>
-
                 <canvas id="canvas">
-
                 </canvas>
             </div>
         </div>
@@ -66,21 +66,19 @@
                     highlightStroke: "rgba(0,0,0,1)",
                     data: [
                         {% for user_info in users_info %}
-                            '{{ user_info.darsad }}' ,
+                            {{ user_info.darsad }} * 100,
                         {% endfor %}
 
                     ]
                 }
             ]
 
-        }
-
+        };
         window.onload = function () {
             var ctx = document.getElementById("canvas").getContext("2d");
             window.myBar = new Chart(ctx).Bar(barChartData, {
                 responsive: true
             });
         }
-
     </script>
 {% endblock %}
