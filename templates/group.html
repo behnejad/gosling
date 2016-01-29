@@ -124,7 +124,7 @@
                                                     <a href='{% url 'groupExamResult' exam.id %}' class="btn btn-info">به اتمام رسید</a>
                                                 {% endif %}
                                                 {% if not user %}
-                                                    <a href='#' class="btn btn-primary">ویرایش</a>
+                                                    <a href='{% url 'groupExamResult' exam.id %}' class="btn btn-primary">دیدن وضعیت</a>
                                                     <a href='#' class="btn btn-primary">حذف</a>
                                                 {% endif %}
                                             </div>

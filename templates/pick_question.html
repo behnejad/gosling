@@ -6,22 +6,24 @@
     <div class="col-sm-12">
         <div class="rtl irmitra" style="font-size:18px;">
             <div class="panel panel-primary" align="right">
-            <form action="{% url 'makeExam' %}" method="post">{% csrf_token %}
+            <form action="{% url 'selectQuestion' %}" method="post">{% csrf_token %}
+            <input type="hidden" value="{{ eID }}" name="eID"/>
+            <input type="hidden" value="{{ gID }}" name="gID"/>
                 <div class="panel-body">
-                    {% for question_info in questions_info %}
+                    {% for question_info in probs %}
                     <div class="panel panel-primary" align="right">
                         <div class="panel-body">
-                            <div class="col-sm-6">توضیحات:
-                                {{ question_info.info }}
+                            <div class="col-sm-4">توضیحات:
+                                {{ question_info.text|safe }}
                             </div>
-                            <div class="col-sm-3">سوال:
+                            <div class="col-sm-4">سوال:
                                 {{ question_info.question }}
                             </div>
-                            <div class="col-sm-2">موضوع:
-                                {{ question_info.subject }}
+                            <div class="col-sm-3">موضوع:
+                                {{ question_info.sec }}
                             </div>
                             <div class="col-sm-1">
-                                <input type="checkbox" name="{{ question_info.id }}" value="y">
+                                <input type="checkbox" name="check" value="{{ question_info.id }}">
                             </div>
                         </div>
                     </div>

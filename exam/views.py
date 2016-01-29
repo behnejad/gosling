@@ -26,7 +26,6 @@ def answerProblem(request, mode=''):
     eID = request.POST['eID']
     pID = request.POST['problem']
     uID = request.session['userId']
-    print eID, pID, uID
 
     if mode == 'set':
         sel = int(request.POST['select'])
@@ -99,14 +98,21 @@ def makeExam(request):
     nm = request.POST.get('examName')
 
     if (gr and sd and ed and nm):
-        examination(groupid=Group.objects.get(id=gr), startdate=datetime.strptime(sd, '%Y-%m-%d %I:%M %p'),
-                    enddate=datetime.strptime(ed, '%Y-%m-%d %I:%M %p'), name=nm).save()
+        a = examination(groupid=Group.objects.get(id=gr), startdate=datetime.strptime(sd, '%Y-%m-%d %I:%M %p'),
+                    enddate=datetime.strptime(ed, '%Y-%m-%d %I:%M %p'), name=nm)
+        a.save()
+    else:
+        return HttpResponseRedirect('/exam/group/%d' % gr)
 
-    return HttpResponseRedirect('/exam/examMake/' + gr)
+    return render(request, 'pick_question.html', {'eID': a.id, 'gID': gr, 'probs': prob.objects.get_queryset()})
 
 
-def selectQuestions(request, eID):
-    ex = examination.objects.get(id=eID)
+def selectQuestions(request):
+    ex = examination.objects.get(id=request.POST['eID'])
+    for i in request.POST.getlist('check'):
+        examproblems(examid=ex, problemid=prob.objects.get(id=i)).save()
+
+    return HttpResponseRedirect('/exam/group/%s' % request.POST['gID'])
 
 
 def addToGroup(request):
@@ -123,7 +129,7 @@ def pick_question(request):
     questions_info = []
     question_info = {}
 
-    question_info['info'] = "dsds";
+    question_info['info'] = "dsds"
     question_info['question'] = "صورت سوال"
     question_info['subject'] = "مهندسی نرم"
     question_info['id'] = 12
@@ -153,7 +159,7 @@ def loginGroup(request, gId):
     if request.method == 'POST':
         if group_user_relation.objects.filter(user=request.session['userId'], group=gId)[:1].count():
             return render(request, 'group_create_login.html', {'create': False, 'group': Group.objects.get(id=gId),
-                                                               'mess': 'الان تو گروهی مگه مریضی؟'})
+                                                               'mess': 'الان تو گروهی  ؟'})
 
         g = Group.objects.get(id=gId)
         if g.password == request.POST['password']:
@@ -183,84 +189,3 @@ def add_problem(request):
 
     else:
         return render(request, 'section.html', {'next': 'type', 'data': field.objects.get_queryset()})
-
-
-def problem_list(request):
-    return render(request, 'index.html')
-
-
-def answer_question(request):
-    useri = request.POST.get('user')
-    exami = request.POST.get('exam')
-    problemi = request.POST.get('problem')
-    answeri = request.POST.get('answer')
-    if (useri and exami and problemi and answeri):
-        t = examination.objects.filter(examid=exami)[:1]
-        if t.count() and group_user_relation.objects.filter(user=useri, group=t[0].groupid)[:1].count() and examproblems.objects.filter(examid=exami, problemid=problemi)[:1].count():
-            u = useranswers.objects.filter(userid=useri, examid=exami, problemid=problemi)
-            if (u.count()):
-                pass
-                #useranswers.objects.get(userid=useri, examid=exami, problemid=problemi)
-                #update the answer
-            else:
-                useranswers(userid=useri, examid=exami, problemid=problemi, answer=answeri).save()
-            return render(request, 'ok.html')
-
-
-def answer_questions(request):
-    userin = request.POST.get('user')
-    examin = request.POST.get('exam')
-    problemin = request.POST.get('problem')
-    answern = request.POST.get('answer')
-    if (userin and examin and problemin and answern):
-        for i in range(len(userin)):
-            useri = userin[i]
-            exami = examin[i]
-            problemi = problemin[i]
-            answeri = answern[i]
-
-            t = examination.objects.filter(examid=exami)[:1]
-            if t.count() and group_user_relation.objects.filter(user=useri, group=t[0].groupid)[:1].count() and examproblems.objects.filter(examid=exami, problemid=problemi)[:1].count():
-                u = useranswers.objects.filter(userid=useri, examid=exami, problemid=problemi)
-                if (u.count()):
-                    pass
-                    #useranswers.objects.get(userid=useri, examid=exami, problemid=problemi)
-                    #update the answer
-                else:
-                    useranswers(userid=useri, examid=exami, problemid=problemi, answer=answeri).save()
-    return render(request, 'profile.html')
-
-
-def add_problem_to_exam(request):
-    exid = request.POST.get('exam')
-    prid = request.POST.get('problem')
-
-    if (exid and prid):
-        examproblems(examid=exid, problemid=prid).save()
-
-
-def user_exam_evaluation(request):
-    userid = request.POST.get('user')
-    examid = request.POST.get('exam')
-    groupid = request.POST.get('group')
-    if userid and examid:
-        all_problem_info = []
-        all_user_ans = []
-
-        AnswerOfUserInExam = useranswers.objects.filter(userid=userid, examid=examid, groupid=groupid)
-        for i in range(0, len(AnswerOfUserInExam)):
-            problem_id = AnswerOfUserInExam.problemid
-            user_ans = AnswerOfUserInExam.answer
-            problem_info = prob.objects.filter(problemid=problem_id)
-
-            if problem_info.count() == 1:
-                all_problem_info.append(problem_info)
-            else:
-                assert "error"
-
-            all_user_ans.append(user_ans)
-
-        return render(request, 'user_exam_evaluation.html', {'all_user_ans': all_user_ans, 'all_problem_info': all_problem_info})
-
-    return render(request, 'profile.html')
-
