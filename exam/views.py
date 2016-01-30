@@ -49,22 +49,44 @@ def group_exam_result(request, eID):
     res = getExamScores(eID)
     users_info = []
     mx, mn = -100, 100
+    ex = examination.objects.get(id=eID)
+    if request.session['userId'] == ex.groupid.admin_id:
+        a = 0
+        for i in res[0]:
+            users_info.append({'name': res[0][i][2], 'correct': res[0][i][0], 'incorrect': res[0][i][1],
+                               'darsad': float(3 * res[0][i][0] - res[0][i][1]) * 100 / float(3 * res[1])})
 
-    a = 0
-    for i in res[0]:
-        users_info.append({'name': res[0][i][2], 'correct': res[0][i][0], 'incorrect': res[0][i][1],
-                           'darsad': float(3 * res[0][i][0] - res[0][i][1]) / float(3 * res[1])})
+            if (users_info[-1]['darsad'] > mx):
+                mx = users_info[-1]['darsad']
 
-        if (users_info[-1]['darsad'] > mx):
-            mx = users_info[-1]['darsad']
+            if (users_info[-1]['darsad'] < mn):
+                mn = users_info[-1]['darsad']
 
-        if (users_info[-1]['darsad'] < mn):
-            mn = users_info[-1]['darsad']
+            a += users_info[-1]['darsad']
 
-        a += users_info[-1]['darsad']
+            users_info[-1]['darsad'] = "%.2f" % users_info[-1]['darsad']
+    else:
+        a = 0
+        for i in res[0]:
+            tempuser = {'name': res[0][i][2], 'correct': res[0][i][0], 'incorrect': res[0][i][1],
+                               'darsad': float(3 * res[0][i][0] - res[0][i][1]) * 100 / float(3 * res[1])}
 
-    return render(request, 'group_exam_result.html', {'avg_exam': float(a) / len(res[0]), 'min_exam': mn * 100,
-                                                      'max_exam': mx * 100, 'users_info': users_info})
+            if (tempuser['darsad'] > mx):
+                mx = tempuser['darsad']
+
+            if (tempuser['darsad'] < mn):
+                mn = tempuser['darsad']
+
+            a += tempuser['darsad']
+
+            tempuser['darsad'] = "%.2f" % tempuser['darsad']
+            if (i == request.session['userId']):
+                users_info.append(tempuser)
+
+    return render(request, 'group_exam_result.html', {'avg_exam': "%.2f" % (float(a) / len(res[0])),
+                                                      'min_exam': "%.2f" % mn,
+                                                      'max_exam': "%.2f" % mx,
+                                                      'users_info': users_info})
 
 
 def exam_list(request):

@@ -9,6 +9,7 @@ from user.tokenmanager import generate_link_for_reset_pass
 from user.tokenmanager import token_is_expired
 from datetime import datetime
 from os.path import exists
+from exam.models import exam
 
 def profile(request):
     if not request.session.get('login'):
@@ -17,8 +18,9 @@ def profile(request):
     u = User.objects.get(id=request.session.get('userId'))
     grp = group_user_relation.objects.filter(user=request.session['userId'])[:3]
     admins = group.objects.filter(admin=u.id)
+    exs = exam.objects.filter(groupid__in=[x.group.id for x in grp])
     return render(request, 'profile.html', {'user': u, 'avatar': exists('statics/avatars/%s.jpg' % u.email),
-                                            'grp': grp, 'admin': admins})
+                                            'grp': grp, 'admin': admins, 'exams': exs})
 
 
 def close(request):

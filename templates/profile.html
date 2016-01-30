@@ -107,13 +107,11 @@
                     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                         <div class="panel-body">
                             <ul class="list-group" style="padding-right:0px">
-                                <li class="list-group-item"><a href="{% url 'exam' '1' %}">امتحان میان ترم ریاضی</a>
-                                </li>
-                                <li class="list-group-item"><a href="{% url 'exam' '2' %}">امتحان پایان ترم فیزیک</a>
-                                </li>
-                                <li class="list-group-item"><a href="{% url 'exam' '3' %}">کوئیز دینی</a></li>
+                                {% for exam in exams %}
+                                    <li class="list-group-item"><a href="{% url 'exam' exam.id %}">{{ exam.name }}</a></li>
+                                {% endfor %}
                             </ul>
-                            <h4><a href="{% url 'examList' %}">دیدن همه...</a></h4>
+{#                            <h4><a href="#">دیدن همه...</a></h4>#}
                         </div>
                     </div>
                 </div>
